@@ -11,10 +11,11 @@ datasource db {
 model User {
     id Int @id @default(autoincrement())
 
-    fullname String
+    fullName String
     email    String   @unique
     password String
     role     UserRole @default(USER)
+    verified DateTime
 
     provider   String?
     providerId String?
@@ -55,9 +56,9 @@ model Product {
 model ProductVariant {
     id Int @id @default(autoincrement())
 
-    price       Int
-    size        Int?
-    productType Int?
+    price     Int
+    size      Int?
+    pizzaType Int?
 
     cartItems CartItem[]
 
