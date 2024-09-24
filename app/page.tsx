@@ -1,10 +1,10 @@
 import {
   Container,
-  Filters,
   ProductGroupList,
   Title,
   TopBar,
 } from "@/components/shared";
+import { Filters } from "@/components/shared/Filters";
 
 export default function Home() {
   return (

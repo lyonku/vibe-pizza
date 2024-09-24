@@ -2,19 +2,21 @@
 
 import { ChangeEvent, FC, useState } from "react";
 import { FilterChecboxProps, FilterCheckbox } from "./filter-checkbox";
-import { Input } from "../ui";
+import { Input, Skeleton } from "@/components/ui";
 
 type Item = FilterChecboxProps;
 
 interface CheckboxFiltersGroupProps {
   title: string;
   items: Item[];
-  defaultItems: Item[];
+  defaultItems?: Item[];
   limit?: number;
   searchInputPlaceholder?: string;
-  onChange?: (values: string[]) => void;
-  defaultValue?: string[];
+  onClickCheckbox?: (id: string) => void;
   className?: string;
+  loading?: boolean;
+  selectedValues?: Set<string>;
+  name?: string;
 }
 
 const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
@@ -24,8 +26,10 @@ const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
   limit = 5,
   searchInputPlaceholder = "Поиск...",
   className,
-  onChange,
-  defaultValue,
+  loading,
+  onClickCheckbox,
+  selectedValues,
+  name,
 }) => {
   const [showAll, setShowAll] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -38,11 +42,31 @@ const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
     setSearchValue(e.target.value);
   };
 
-  const list = showAll
-    ? items.filter((item) =>
-        item.text.toLowerCase().includes(searchValue.toLowerCase())
-      )
-    : defaultItems?.slice(0, limit);
+  if (loading) {
+    return (
+      <div className={className}>
+        <p className="font-bold">{title}</p>
+
+        {...Array(limit)
+          .fill(0)
+          .map((_, index) => {
+            return (
+              <div key={index} className="flex gap-3">
+                <Skeleton className="min-w-6 h-6 rounded-[8px]" />
+                <Skeleton className="w-full h-6 rounded-[8px]" />
+              </div>
+            );
+          })}
+        <Skeleton className="w-28 h-6 rounded-[8px]" />
+      </div>
+    );
+  }
+
+  const filteredItems = items.filter((item) =>
+    item.text.toLowerCase().includes(searchValue.toLowerCase())
+  );
+  const dataSource = defaultItems ?? items;
+  const list = showAll ? filteredItems : dataSource.slice(0, limit);
 
   return (
     <div className={className}>
@@ -65,8 +89,9 @@ const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
               text={item.text}
               value={item.value}
               endAdornment={item.endAdornment}
-              checked={false}
-              onCheckedChange={(ids) => console.log(ids)}
+              checked={selectedValues?.has(item.value)}
+              onCheckedChange={() => onClickCheckbox?.(item.value)}
+              name={name}
             />
           );
         })}
