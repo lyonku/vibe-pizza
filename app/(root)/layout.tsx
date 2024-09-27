@@ -1,4 +1,4 @@
-import { Header } from "@/common/components/shared";
+import { Header } from "@/common/modules/header";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,10 +11,7 @@ interface HomeLayoutProps {
   modal: React.ReactNode;
 }
 
-export default function HomeLayout({
-  children,
-  modal,
-}: Readonly<HomeLayoutProps>) {
+export default function HomeLayout({ children, modal }: Readonly<HomeLayoutProps>) {
   return (
     <>
       <Header />

@@ -1,10 +1,8 @@
-import {
-  Container,
-  ProductGroupList,
-  Title,
-  TopBar,
-} from "@/common/components/shared";
-import { Filters } from "@/common/components/shared/filters";
+import { Container } from "@/common/components";
+import { Filters } from "@/common/modules/filters";
+import { ProductList } from "@/common/modules/products-list";
+import { TopBar } from "@/common/modules/top-bar";
+import { Title } from "@/common/ui";
 import { prisma } from "@/prisma/prisma-client";
 
 export default async function Home() {
@@ -22,40 +20,18 @@ export default async function Home() {
   return (
     <>
       <Container className="mt-10">
-        <Title text="Все пиццы" size="lg" className="font-extrabold" />
+        <Title text="Все продукты" size="lg" className="font-extrabold" />
       </Container>
 
-      <TopBar
-        categories={categories.filter(
-          (category) => category.products.length > 0
-        )}
-      />
+      {/* Верхняя панель с категориями и сортировкой */}
+      <TopBar categories={categories} />
 
-      <Container className="mt-10 pb-14">
-        <div className="flex gap-[80px]">
-          {/* Фильтрация */}
-          <div className="w-[250px]">
-            <Filters />
-          </div>
+      <Container className="flex gap-[80px] mt-10 pb-14 ">
+        {/* Фильтрация */}
+        <Filters className="w-[250px]" />
 
-          {/* Список товаров */}
-          <div className="flex-1">
-            <div className="flex flex-col gap-[50px]">
-              {categories.map((category) => {
-                if (category.products.length > 0) {
-                  return (
-                    <ProductGroupList
-                      key={category.id}
-                      title={category.name}
-                      categoryId={category.id}
-                      products={category.products}
-                    />
-                  );
-                }
-              })}
-            </div>
-          </div>
-        </div>
+        {/* Список товаров */}
+        <ProductList categories={categories} />
       </Container>
     </>
   );

@@ -1,9 +1,5 @@
-import {
-  Container,
-  PizzaImage,
-  ProductVariants,
-  Title,
-} from "@/common/components/shared";
+import { Container, PizzaImage, ProductVariants } from "@/common/components";
+import { Title } from "@/common/ui";
 import { prisma } from "@/prisma/prisma-client";
 import { notFound } from "next/navigation";
 
@@ -24,14 +20,9 @@ export default async function ProductPage({ params: { id } }: ParamsType) {
         <PizzaImage src={product.imageUrl} className="" size={40} />
 
         <div className="w-[490px] bg-[#f9f9f9] p-7 rounded-xl">
-          <Title
-            text={product.name}
-            size="md"
-            className="font-extrabold mb-1"
-          />
+          <Title text={product.name} size="md" className="font-extrabold mb-1" />
           <p className="text-gray-400">
-            Цыпленок, моцарелла, сыры чеддер и пармезан, сырный соус, томаты,
-            соус альфредо, чеснок
+            Цыпленок, моцарелла, сыры чеддер и пармезан, сырный соус, томаты, соус альфредо, чеснок
           </p>
 
           <ProductVariants
