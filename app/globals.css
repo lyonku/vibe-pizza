@@ -91,6 +91,14 @@ html {
   background: #dbdadd;
 }
 
+.scrollbar-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-modal::-webkit-scrollbar-track {
+  background: #f4f1ee;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
