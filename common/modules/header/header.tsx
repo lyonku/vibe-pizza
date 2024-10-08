@@ -1,11 +1,11 @@
 import { cn } from "@/common/lib/utils";
 import { FC } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ShoppingCart, User } from "lucide-react";
+import { User } from "lucide-react";
 import { Container } from "@/common/components";
 import { Button } from "@/common/ui";
-import { SearchInput } from "./components/search-input";
+import { CartButton, SearchInput } from "./components";
+import Image from "next/image";
 
 interface HeaderProps {
   classname?: string;
@@ -36,17 +36,7 @@ export const Header: FC<HeaderProps> = ({ classname }) => {
             <User size={16} />
             Войти
           </Button>
-          <div>
-            <Button className="group relative h-[50px] px-5 text-base">
-              <b>520 ₽</b>
-              <span className="h-full w-[1px] bg-white/30 mx-3 max-h-[25px]"></span>
-              <div className="flex items-center gap-2 transition duration-300 group-hover:opacity-0">
-                <ShoppingCart size={16} className="relative -mt-[2px]" strokeWidth={2.5} />
-                <b>3</b>
-              </div>
-              <ArrowRight className="w-5 absolute right-5 transition duration-300 -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:-translate-x-0" />
-            </Button>
-          </div>
+          <CartButton />
         </div>
       </Container>
     </header>

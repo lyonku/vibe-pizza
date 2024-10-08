@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { Categories, SortPopup } from "./components";
 import { Container } from "@/common/components";
-import { CategoryWithRelations } from "@/@types/prisma";
+import { CategoryDTO } from "@/@types/prisma";
 
 interface TopBarProps {
-  categories: CategoryWithRelations[];
+  categories: CategoryDTO[];
 }
 
 export const TopBar: FC<TopBarProps> = ({ categories }) => {

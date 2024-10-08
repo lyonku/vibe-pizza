@@ -1,4 +1,4 @@
-const mapPizzaSize = {
+export const mapPizzaSize = {
   20: "Маленькая",
   30: "Средняя",
   40: "Большая",

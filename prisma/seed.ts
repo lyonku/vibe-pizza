@@ -11,28 +11,51 @@ const randomDecimalNumber = (min: number, max: number) => {
 const sizesForPizzaType1 = [20, 30, 40]; // Размеры для pizzaType = 1
 const sizesForPizzaType2 = [30, 40]; // Размеры для pizzaType = 2
 
+interface SizeAttributes {
+  priceCoefficient: number;
+  weightCoefficient: number;
+}
+
+const sizeAttributes: Record<number, SizeAttributes> = {
+  20: { priceCoefficient: 1.0, weightCoefficient: 1.0 }, // Маленькая
+  30: { priceCoefficient: 1.3, weightCoefficient: 1.4 }, // Средняя
+  40: { priceCoefficient: 1.6, weightCoefficient: 1.7 }, // Большая
+};
+
 // Функция для создания вариантов пиццы
 async function createProductVariants(pizzaId: number) {
   // Варианты для pizzaType = 1
+
+  const basePrice = randomDecimalNumber(250, 450);
+  const baseWeight = randomDecimalNumber(200, 350);
+
   for (const size of sizesForPizzaType1) {
+    const { priceCoefficient, weightCoefficient } = sizeAttributes[size];
+
     await prisma.productVariant.create({
       data: {
         productId: pizzaId,
-        price: randomDecimalNumber(250, 700) + size,
+        price: basePrice * priceCoefficient,
         pizzaType: 1,
-        size,
+        size: size,
+        sizeType: "PORTIONS",
+        weight: baseWeight * weightCoefficient,
       },
     });
   }
 
   // Варианты для pizzaType = 2
   for (const size of sizesForPizzaType2) {
+    const { priceCoefficient, weightCoefficient } = sizeAttributes[size];
+
     await prisma.productVariant.create({
       data: {
         productId: pizzaId,
-        price: randomDecimalNumber(250, 700) + size,
+        price: basePrice * (priceCoefficient + 0.1),
         pizzaType: 2,
-        size,
+        size: size,
+        sizeType: "PORTIONS",
+        weight: baseWeight * (weightCoefficient - 0.02),
       },
     });
   }
@@ -70,13 +93,18 @@ async function createProducts() {
       },
     });
 
-    // Создание вариации для обычного продукта
-    await prisma.productVariant.create({
-      data: {
-        productId: createdProduct.id,
-        price: randomDecimalNumber(50, 300),
-      },
-    });
+    for (const variant of product.variants) {
+      // Создание вариации для обычного продукта
+      await prisma.productVariant.create({
+        data: {
+          productId: createdProduct.id,
+          price: randomDecimalNumber(120, 400),
+          weight: variant.weight,
+          size: variant.size,
+          sizeType: product.sizeType as "LITERS" | "PIECES" | "PORTIONS",
+        },
+      });
+    }
   }
 }
 
@@ -129,7 +157,7 @@ async function up() {
   // Пример создания элемента корзины
   await prisma.cartItem.create({
     data: {
-      productItemId: 1, // ID варианта продукта
+      productVariantId: 1, // ID варианта продукта
       cartId: 1, // ID корзины
       quantity: 1,
       ingredients: {

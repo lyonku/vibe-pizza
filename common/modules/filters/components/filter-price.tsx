@@ -18,16 +18,16 @@ export const FilterPrice: FC<FilterPriceProps> = ({ priceFrom, priceTo, setPrice
           id="priceFrom"
           placeholder="0"
           min={0}
-          max={5000}
+          max={1500}
           value={String(priceFrom)}
           onChange={setPrice}
         />
         <Input
           type="number"
           id="priceTo"
-          placeholder="5000"
+          placeholder="1500"
           min={100}
-          max={5000}
+          max={1500}
           value={String(priceTo)}
           onChange={setPrice}
         />
@@ -35,9 +35,9 @@ export const FilterPrice: FC<FilterPriceProps> = ({ priceFrom, priceTo, setPrice
 
       <RangeSlider
         min={0}
-        max={5000}
+        max={1500}
         step={10}
-        value={[priceFrom || 0, priceTo || 5000]}
+        value={[priceFrom || 0, priceTo || 1500]}
         onValueChange={setRangePrice}
       />
     </div>

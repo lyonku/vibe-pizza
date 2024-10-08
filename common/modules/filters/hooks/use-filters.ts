@@ -29,10 +29,7 @@ interface ReturnProps extends Filters {
 }
 
 export const useFilters = (): ReturnProps => {
-  const searchParams = useSearchParams() as unknown as Map<
-    keyof QueryFilters,
-    string
-  >;
+  const searchParams = useSearchParams() as unknown as Map<keyof QueryFilters, string>;
 
   /* Фильтр ингредиентов */
   const [selectedIngredients, { toggle: toggleIngredient }] = useSet(
@@ -41,18 +38,12 @@ export const useFilters = (): ReturnProps => {
 
   /* Фильтр размеров */
   const [sizes, { toggle: toggleSize }] = useSet(
-    new Set<string>(
-      searchParams.get("sizes") ? searchParams.get("sizes")?.split(",") : []
-    )
+    new Set<string>(searchParams.get("sizes") ? searchParams.get("sizes")?.split(",") : [])
   );
 
   /* Фильтр типа пиццы */
   const [pizzaTypes, { toggle: togglePizzaType }] = useSet(
-    new Set<string>(
-      searchParams.get("pizzaTypes")
-        ? searchParams.get("pizzaTypes")?.split(",")
-        : []
-    )
+    new Set<string>(searchParams.get("pizzaTypes") ? searchParams.get("pizzaTypes")?.split(",") : [])
   );
 
   /* Фильтр стоймости */
@@ -64,7 +55,7 @@ export const useFilters = (): ReturnProps => {
   const updatePrice = (e: ChangeEvent<HTMLInputElement>) => {
     const id = e.target.id;
     const value = Number(e.target.value);
-    if (value >= 0 && value <= 5000) {
+    if (value >= 0 && value <= 1500) {
       setPrices((prev) => ({ ...prev, [id]: value }));
     }
   };

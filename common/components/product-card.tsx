@@ -7,24 +7,25 @@ import Image from "next/image";
 interface ProductCardProps {
   id: number;
   name: string;
+  desc: string;
   price: number;
   imageUrl: string;
   className?: string;
 }
 
-export const ProductCard: FC<ProductCardProps> = ({ id, name, price, imageUrl, className }) => {
-  const desc = "Цыпленок, моцарелла, сыры чеддер и пармезан, сырный соус, томаты, соус альфредо, чеснок";
-
+export const ProductCard: FC<ProductCardProps> = ({ id, name, desc, price, imageUrl, className }) => {
   return (
     <div className={className}>
-      <Link href={`/product/${id}`} className="flex flex-col gap-4">
-        <div className="flex justify-center items-center bg-secondary rounded-lg h-[260px]">
-          <Image width={215} height={215} src={imageUrl} alt={name} />
-        </div>
+      <Link href={`/product/${id}`} className="flex flex-col gap-4 justify-between h-full" scroll={false}>
+        <div className="flex flex-col gap-4">
+          <div className="flex  justify-center items-center bg-secondary rounded-lg h-[260px]">
+            <Image width={215} height={215} src={imageUrl} alt={name} />
+          </div>
 
-        <div className="flex flex-col gap-2">
-          <Title text={name} size="sm" className="font-bold" />
-          <p className="text-sm text-gray-400">{desc}</p>
+          <div className="flex flex-col gap-2">
+            <Title text={name} size="sm" className="font-bold leading-7" />
+            <p className="text-sm text-gray-400">{desc}</p>
+          </div>
         </div>
 
         <div className="flex justify-between items-center">

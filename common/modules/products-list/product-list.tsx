@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { ProductGroupList } from "./components";
-import { CategoryWithRelations } from "@/@types/prisma";
+import { CategoryDTO } from "@/@types/prisma";
 
 interface ProductListProps {
-  categories: CategoryWithRelations[];
+  categories: CategoryDTO[];
 }
 
 export const ProductList: FC<ProductListProps> = ({ categories }) => {

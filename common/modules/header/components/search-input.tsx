@@ -38,7 +38,7 @@ export const SearchInput: FC<SearchInputProps> = (className) => {
         const items = await Api.products.search(searchQuery);
         setProducts(items);
       } catch (error) {
-        console.log();
+        console.error(error);
       }
     },
     250,
@@ -61,15 +61,9 @@ export const SearchInput: FC<SearchInputProps> = (className) => {
       ></div>
       <div
         ref={ref}
-        className={cn(
-          "flex rounded-2xl flex-1 justify-between relative h-[50px] z-30",
-          className
-        )}
+        className={cn("flex rounded-2xl flex-1 justify-between relative h-[50px] z-30", className)}
       >
-        <Search
-          size={16}
-          className="absolute top-1/2 translate-y-[-50%] left-5 text-[#ADADAD]"
-        />
+        <Search size={16} className="absolute top-1/2 translate-y-[-50%] left-5 text-[#ADADAD]" />
         <input
           className="rounded-2xl outline-none w-full bg-[#F9F9F9] pl-12 placeholder-[#C0C0C0]"
           type="text"

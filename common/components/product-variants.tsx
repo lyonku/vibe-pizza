@@ -16,32 +16,30 @@ interface ProductVariantsProps {
   className?: string;
 }
 
-export const ProductVariants: FC<ProductVariantsProps> = ({
-  items,
-  onClick,
-  className,
-  selected,
-}) => {
-  const activeWidth = Math.floor(100 / items.length);
+export const ProductVariants: FC<ProductVariantsProps> = ({ items, onClick, className, selected }) => {
+  const activeWidth = (100 / items.length).toFixed(4);
   const activeIndex = items.findIndex((item) => item.id === selected);
 
   return (
     <div
       className={cn(
-        "relative flex justify-between bg-[#ECECEC] rounded-3xl p-[2px] select-none h-[40px] w-full overflow-hidden",
+        "relative flex items-center justify-between p-[2px] bg-[#ECECEC] rounded-3xl select-none h-[40px] w-full overflow-hidden",
         className
       )}
     >
-      <div
-        className={cn(
-          "absolute h-[35px] transition-transform duration-200 before:bg-white before:shadow before:w-full before:h-full before:absolute before:inset-0 before:rounded-[30px] before:block "
-        )}
-        style={{
-          width: activeWidth + "%",
-          transform: `translate3d(${activeIndex * 100}%, 0, 0)`,
-          willChange: "transform",
-        }}
-      ></div>
+      {items.length > 1 && (
+        <div
+          className={cn(
+            "absolute h-[35px] transition-transform duration-200 before:bg-white before:shadow before:w-full before:h-full before:absolute before:inset-0 before:rounded-[30px] before:block "
+          )}
+          style={{
+            width: `calc(${activeWidth}% - ${items.length % 2 === 0 ? 2 : 1.5}px)`,
+            transform: `translateX(${activeIndex * 100}%)`,
+            willChange: "transform",
+          }}
+        ></div>
+      )}
+
       {items.map((item) => (
         <button
           key={item.name}

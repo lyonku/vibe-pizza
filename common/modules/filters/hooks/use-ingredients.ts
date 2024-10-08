@@ -18,7 +18,7 @@ export const useIngredients = (): ReturnProps => {
         const items = await Api.ingredients.getAll();
         setIngredients(items);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         setLoading(false);
       }

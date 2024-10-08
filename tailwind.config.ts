@@ -5,6 +5,8 @@ const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./common/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./common/modules/**/*.{js,ts,jsx,tsx,mdx}",
+    "./common/ui/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {

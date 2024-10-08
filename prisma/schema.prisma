@@ -58,8 +58,11 @@ model ProductVariant {
     id Int @id @default(autoincrement())
 
     price     Int
-    size      Int?
     pizzaType Int?
+    weight    Int?
+
+    size     Float
+    sizeType SizeType
 
     cartItems CartItem[]
 
@@ -103,10 +106,10 @@ model CartItem {
     cart   Cart @relation(fields: [cartId], references: [id])
     cartId Int
 
-    productItem   ProductVariant @relation(fields: [productItemId], references: [id])
-    productItemId Int
+    productVariant   ProductVariant @relation(fields: [productVariantId], references: [id])
+    productVariantId Int
 
-    quantity Int
+    quantity Int @default(1)
 
     ingredients Ingredient[]
 
@@ -150,6 +153,12 @@ model VerificationCode {
     createdAt DateTime @default(now())
 
     @@unique([userId, code])
+}
+
+enum SizeType {
+    LITERS
+    PIECES
+    PORTIONS
 }
 
 enum OrderStatus {
