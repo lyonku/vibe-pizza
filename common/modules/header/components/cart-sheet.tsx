@@ -12,7 +12,7 @@ import {
   SheetDescription,
 } from "@/common/ui";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader } from "lucide-react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { CartSheetItem } from "./cart-sheet-item";
 import { getCartItemDetails } from "@/common/lib";
@@ -21,11 +21,13 @@ import {
   removeCartItem,
   updateItemQuantity,
   useCartItems,
+  useCartLoading,
   useCartTotalAmount,
 } from "@/common/store/useCartStore";
 import { SizeType } from "@prisma/client";
 import { PizzaType } from "@/common/constants/pizza";
 import plural from "plural-ru";
+import { cn } from "@/common/lib/utils";
 
 interface CartSheetProps {
   className?: string;
@@ -34,6 +36,7 @@ interface CartSheetProps {
 export const CartSheet: FC<PropsWithChildren<CartSheetProps>> = ({ children }) => {
   const items = useCartItems();
   const totalAmount = useCartTotalAmount();
+  const loading = useCartLoading();
 
   useEffect(() => {
     fetchCartItems();
@@ -55,13 +58,21 @@ export const CartSheet: FC<PropsWithChildren<CartSheetProps>> = ({ children }) =
           <SheetTitle>Корзина</SheetTitle>
           <SheetDescription>Боковая панель с добавленными продуктами</SheetDescription>
         </VisuallyHidden>
-        <SheetHeader className="p-5 pb-2">
+        <SheetHeader className="flex flex-row items-center justify-between p-5 pb-2">
           <p className="text-xl">
             В корзине{" "}
             <strong className="font-bold">
               {plural(items.length, "%d товар", "%d товара", "%d товаров")}
             </strong>
           </p>
+          <div
+            className={cn("transition-opacity ease-in-out", loading ? "opacity-100" : "opacity-0")}
+            style={{
+              transitionDelay: loading ? "100ms" : "0ms",
+            }}
+          >
+            {loading && <Loader className="animate-spin" />}
+          </div>
         </SheetHeader>
 
         <div className="flex flex-col gap-3 overflow-auto scrollbar scrollbar-modal flex-1">
@@ -82,6 +93,7 @@ export const CartSheet: FC<PropsWithChildren<CartSheetProps>> = ({ children }) =
                   quantity={item.quantity}
                   onClickCounterBtn={(type) => onClickCountBtn(item.id, item.quantity, type)}
                   onClickRemove={() => removeCartItem(item.id)}
+                  disabled={item.disabled}
                 />
               );
             }

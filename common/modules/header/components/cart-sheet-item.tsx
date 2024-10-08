@@ -15,11 +15,11 @@ interface CartSheetItemProps {
   details: string;
   onClickCounterBtn: (type: "plus" | "minus") => void;
   onClickRemove: () => void;
+  disabled: boolean | undefined;
   className?: string;
 }
 
 export const CartSheetItem: FC<CartSheetItemProps> = ({
-  id,
   productId,
   imageUrl,
   name,
@@ -28,10 +28,14 @@ export const CartSheetItem: FC<CartSheetItemProps> = ({
   details,
   onClickCounterBtn,
   onClickRemove,
+  disabled,
   className,
 }) => {
   return (
-    <Link href={`/product/${productId}`} className={cn("flex bg-white p-5 gap-5 relative", className)}>
+    <Link
+      href={`/product/${productId}`}
+      className={cn("flex bg-white p-5 gap-5 relative", disabled && "pointer-events-none", className)}
+    >
       <CartItem.Image src={imageUrl} />
 
       <div className="flex flex-col gap-3 flex-1">
