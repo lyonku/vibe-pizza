@@ -1,6 +1,6 @@
 import { useSearchParams } from "next/navigation";
 import { useSet } from "react-use";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
 
 interface PriceProps {
   priceFrom?: number;
@@ -64,15 +64,19 @@ export const useFilters = (): ReturnProps => {
     setPrices({ priceFrom, priceTo });
   };
 
-  return {
-    sizes,
-    pizzaTypes,
-    selectedIngredients,
-    prices,
-    setPrice: updatePrice,
-    setRangePrice: updateRangePrice,
-    togglePizzaType,
-    toggleSize,
-    toggleIngredient,
-  };
+  return useMemo(
+    () => ({
+      sizes,
+      pizzaTypes,
+      selectedIngredients,
+      prices,
+      setPrice: updatePrice,
+      setRangePrice: updateRangePrice,
+      togglePizzaType,
+      toggleSize,
+      toggleIngredient,
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [sizes, pizzaTypes, selectedIngredients, prices]
+  );
 };
