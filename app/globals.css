@@ -125,3 +125,18 @@ html {
 #nprogress .spinner-icon {
   @apply border-t-primary border-l-primary !important;
 }
+
+.animate-fade-in {
+  opacity: 0;
+  animation: fadeIn 125ms forwards;
+  animation-delay: 100ms;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

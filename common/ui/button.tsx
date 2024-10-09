@@ -6,7 +6,7 @@ import { cn } from "@/common/lib/utils";
 import { Loader } from "lucide-react";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md active:translate-y-[1px] text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none ",
+  "relative inline-flex items-center justify-center whitespace-nowrap rounded-md active:translate-y-[1px] text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none ",
   {
     variants: {
       variant: {
@@ -36,10 +36,24 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   loading?: boolean;
+  isLoadingOver?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, children, disabled, loading, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      size,
+      asChild = false,
+      children,
+      disabled,
+      loading,
+      isLoadingOver = false,
+      ...props
+    },
+    ref
+  ) => {
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
@@ -48,7 +62,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {!loading ? children : <Loader className="w-5 h-5 animate-spin" />}
+        {isLoadingOver ? (
+          <>
+            {children}
+            {loading && (
+              <div className="absolute inset-0 w-full flex items-center justify-center rounded-md backdrop-blur-[3px] animate-fade-in">
+                <Loader size={24} strokeWidth={3} className="animate-spin" />
+              </div>
+            )}
+          </>
+        ) : (
+          <>{!loading ? children : <Loader className="w-5 h-5 animate-spin" />}</>
+        )}
       </Comp>
     );
   }

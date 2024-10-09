@@ -27,7 +27,6 @@ import {
 import { SizeType } from "@prisma/client";
 import { PizzaType } from "@/common/constants/pizza";
 import plural from "plural-ru";
-import { cn } from "@/common/lib/utils";
 
 interface CartSheetProps {
   className?: string;
@@ -65,14 +64,11 @@ export const CartSheet: FC<PropsWithChildren<CartSheetProps>> = ({ children }) =
               {plural(items.length, "%d товар", "%d товара", "%d товаров")}
             </strong>
           </p>
-          <div
-            className={cn("transition-opacity ease-in-out", loading ? "opacity-100" : "opacity-0")}
-            style={{
-              transitionDelay: loading ? "100ms" : "0ms",
-            }}
-          >
-            {loading && <Loader className="animate-spin" />}
-          </div>
+          {loading && (
+            <div className="transition-opacity ease-in-out animate-fade-in">
+              <Loader className="animate-spin" />
+            </div>
+          )}
         </SheetHeader>
 
         <div className="flex flex-col gap-3 overflow-auto scrollbar scrollbar-modal flex-1">
@@ -112,7 +108,11 @@ export const CartSheet: FC<PropsWithChildren<CartSheetProps>> = ({ children }) =
             </div>
 
             <Link href="/cart">
-              <Button type="submit" className="flex gap-3 w-full h-14 text-base font-bold rounded-2xl">
+              <Button
+                disabled={loading}
+                type="submit"
+                className="flex gap-3 w-full h-14 text-base font-bold rounded-2xl"
+              >
                 Оформить заказ
                 <ArrowRight className="w-5" />
               </Button>
