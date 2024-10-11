@@ -1,7 +1,7 @@
 import { Ingredient } from "@prisma/client";
 
 export const AreIngredientsEqual = (arr1: Ingredient[], arr2: number[]) => {
-  if (arr1.length !== arr2.length) {
+  if (arr1.length !== arr2?.length) {
     return false;
   }
 

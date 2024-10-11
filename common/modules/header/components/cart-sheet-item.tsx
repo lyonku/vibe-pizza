@@ -5,17 +5,7 @@ import * as CartItem from "@/common/components/cart-item-details";
 import { X } from "lucide-react";
 import Link from "next/link";
 
-interface CartSheetItemProps {
-  id: number;
-  productId: number;
-  quantity: number;
-  name: string;
-  imageUrl: string;
-  price: number;
-  details: string;
-  onClickCounterBtn: (type: "plus" | "minus") => void;
-  onClickRemove: () => void;
-  disabled: boolean | undefined;
+interface CartSheetItemProps extends CartItem.Props {
   className?: string;
 }
 
@@ -26,7 +16,7 @@ export const CartSheetItem: FC<CartSheetItemProps> = ({
   price,
   quantity,
   details,
-  onClickCounterBtn,
+  onClickCountButton,
   onClickRemove,
   disabled,
   className,
@@ -44,7 +34,7 @@ export const CartSheetItem: FC<CartSheetItemProps> = ({
         <hr className="border-[#EDEDED]" />
 
         <div className="flex items-center justify-between">
-          <CartItem.QuantityCounter value={quantity} onClick={(type) => onClickCounterBtn(type)} />
+          <CartItem.QuantityCounter value={quantity} onClick={onClickCountButton} />
 
           <CartItem.Price value={price} />
         </div>

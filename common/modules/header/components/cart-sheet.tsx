@@ -1,8 +1,7 @@
 "use client";
 
-import { FC, PropsWithChildren, useEffect } from "react";
+import { FC, PropsWithChildren, useState } from "react";
 import {
-  Button,
   Sheet,
   SheetContent,
   SheetFooter,
@@ -10,40 +9,27 @@ import {
   SheetTitle,
   SheetTrigger,
   SheetDescription,
-  Title,
-  SheetClose,
 } from "@/common/ui";
+import { Button, Title, SheetClose } from "@/common/ui";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Loader } from "lucide-react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { CartSheetItem } from "./cart-sheet-item";
 import { getCartItemDetails } from "@/common/lib";
-import {
-  fetchCartItems,
-  removeCartItem,
-  updateItemQuantity,
-  useCartItems,
-  useCartLoading,
-  useCartTotalAmount,
-} from "@/common/store/useCartStore";
 import { SizeType } from "@prisma/client";
 import { PizzaType } from "@/common/constants/pizza";
 import plural from "plural-ru";
 import Image from "next/image";
 import { cn } from "@/common/lib/utils";
+import { useCart } from "@/common/hooks/use-cart";
 
 interface CartSheetProps {
   className?: string;
 }
 
 export const CartSheet: FC<PropsWithChildren<CartSheetProps>> = ({ children }) => {
-  const items = useCartItems();
-  const totalAmount = useCartTotalAmount();
-  const loading = useCartLoading();
-
-  useEffect(() => {
-    fetchCartItems();
-  }, []);
+  const { items, totalAmount, loading, removeCartItem, updateItemQuantity } = useCart(true);
+  const [redirecting, setRedirecting] = useState(false);
 
   const onClickCountBtn = (id: number, quantity: number, type: "plus" | "minus") => {
     const nextQuantity = type === "plus" ? quantity + 1 : quantity - 1;
@@ -110,14 +96,13 @@ export const CartSheet: FC<PropsWithChildren<CartSheetProps>> = ({ children }) =
                   return (
                     <CartSheetItem
                       key={item.id}
-                      id={item.id}
                       productId={item.productId}
                       imageUrl={item.imageUrl}
                       details={getCartItemDetails(size, sizeType, pizzaType, weight, ingredients)}
                       name={item.name}
                       price={item.price}
                       quantity={item.quantity}
-                      onClickCounterBtn={(type) => onClickCountBtn(item.id, item.quantity, type)}
+                      onClickCountButton={(type) => onClickCountBtn(item.id, item.quantity, type)}
                       onClickRemove={() => removeCartItem(item.id)}
                       disabled={item.disabled}
                     />
@@ -137,9 +122,18 @@ export const CartSheet: FC<PropsWithChildren<CartSheetProps>> = ({ children }) =
                   <span className="font-bold">{totalAmount} ₽</span>
                 </div>
 
-                <Link href="/cart">
+                <Link
+                  href="/checkout"
+                  onClick={(e) => {
+                    if (loading || redirecting) {
+                      e.preventDefault();
+                    }
+                  }}
+                >
                   <Button
+                    onClick={() => setRedirecting(true)}
                     disabled={loading}
+                    loading={redirecting}
                     type="submit"
                     className="flex gap-3 w-full h-14 text-base font-bold rounded-2xl"
                   >

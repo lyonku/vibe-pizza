@@ -14,9 +14,9 @@ interface CartState {
   items: PreparedCartItem[];
 }
 type fetchCartItemsFunc = () => Promise<void>;
-type updateItemQuantityFunc = (id: number, quantity: number) => Promise<void>;
-type removeCartItemFunc = (id: number) => Promise<void>;
-type AddCartItemFunc = (values: CreateCartItemValues) => Promise<void>;
+export type updateItemQuantityFunc = (id: number, quantity: number) => Promise<void>;
+export type removeCartItemFunc = (id: number) => Promise<void>;
+export type addCartItemFunc = (values: CreateCartItemValues) => Promise<void>;
 
 const setCartState = (partialState: Partial<CartState>, actionName: string) => {
   useCartStore.setState(partialState, false, actionName);
@@ -72,6 +72,6 @@ export const removeCartItem: removeCartItemFunc = async (id: number) => {
 };
 
 /* Добавление товара в корзину */
-export const addCartItem: AddCartItemFunc = async (values: CreateCartItemValues) => {
+export const addCartItem: addCartItemFunc = async (values: CreateCartItemValues) => {
   await handleApiRequest(() => Api.cart.postCartItem(values), "user/addCartItem");
 };

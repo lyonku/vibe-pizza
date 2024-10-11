@@ -26,7 +26,7 @@ export const CartButton: FC<CartButtonProps> = ({ className }) => {
         className={cn(
           "group relative h-[50px] px-5 text-base",
           isEmptyCart && "px-4",
-          loading && "px-[14px]",
+          loading && isEmptyCart && "px-[14px]",
           className
         )}
         variant={isEmptyCart ? "outline" : "default"}

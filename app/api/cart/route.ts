@@ -17,6 +17,9 @@ export async function GET(req: NextRequest) {
       },
       include: {
         items: {
+          orderBy: {
+            createdAt: "desc",
+          },
           include: {
             productVariant: {
               include: {
@@ -58,7 +61,7 @@ export async function POST(req: NextRequest) {
     });
 
     const existingCartVariant = existingCartVariants.find((cartItem) =>
-      AreIngredientsEqual(cartItem.ingredients, data.ingredients as number[])
+      AreIngredientsEqual(cartItem.ingredients, data.ingredients ? (data.ingredients as number[]) : [])
     );
 
     if (existingCartVariant) {
