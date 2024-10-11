@@ -1,5 +1,5 @@
 import { CreateCartItemValues } from "@/@types/prisma";
-import { findOrCreateCart, updateCartTotalAmount } from "@/app/helpers";
+import { AreIngredientsEqual, findOrCreateCart, updateCartTotalAmount } from "@/app/helpers";
 import { prisma } from "@/prisma/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -17,6 +17,9 @@ export async function GET(req: NextRequest) {
       },
       include: {
         items: {
+          orderBy: {
+            createdAt: "desc",
+          },
           include: {
             productVariant: {
               include: {
@@ -47,25 +50,28 @@ export async function POST(req: NextRequest) {
     const userCart = await findOrCreateCart(token);
     const data = (await req.json()) as CreateCartItemValues;
 
-    const existingCartItem = await prisma.cartItem.findFirst({
+    const existingCartVariants = await prisma.cartItem.findMany({
       where: {
         cartId: userCart.id,
         productVariantId: data.productVariantId,
-        ingredients: {
-          every: { id: { in: data.ingredients } },
-        },
+      },
+      include: {
+        ingredients: true,
       },
     });
 
-    if (existingCartItem) {
-      // Если такой товар уже есть в корзине, то добавляем к нему + 1
+    const existingCartVariant = existingCartVariants.find((cartItem) =>
+      AreIngredientsEqual(cartItem.ingredients, data.ingredients ? (data.ingredients as number[]) : [])
+    );
 
+    if (existingCartVariant) {
+      // Если такой товар уже есть в корзине, то добавляем к нему + 1
       await prisma.cartItem.update({
         where: {
-          id: existingCartItem.id,
+          id: existingCartVariant.id,
         },
         data: {
-          quantity: existingCartItem.quantity + 1,
+          quantity: existingCartVariant.quantity + 1,
         },
       });
     } else {

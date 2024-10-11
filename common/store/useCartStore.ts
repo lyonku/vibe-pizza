@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { Api } from "@/common/services/api-client";
@@ -12,23 +14,30 @@ interface CartState {
   items: PreparedCartItem[];
 }
 type fetchCartItemsFunc = () => Promise<void>;
-type updateItemQuantityFunc = (id: number, quantity: number) => Promise<void>;
-type removeCartItemFunc = (id: number) => Promise<void>;
-type AddCartItemFunc = (values: CreateCartItemValues) => Promise<void>;
+export type updateItemQuantityFunc = (id: number, quantity: number) => Promise<void>;
+export type removeCartItemFunc = (id: number) => Promise<void>;
+export type addCartItemFunc = (values: CreateCartItemValues) => Promise<void>;
+
 const setCartState = (partialState: Partial<CartState>, actionName: string) => {
   useCartStore.setState(partialState, false, actionName);
 };
 
-const handleApiRequest = async (action: () => Promise<any>, actionName: string) => {
+const handleApiRequest = async (action: () => Promise<any>, actionName: string, id?: number) => {
   try {
-    setCartState({ loading: true, error: false }, actionName);
+    const { items } = useCartStore.getState();
+    const nextItems = items.map((item) => (item.id === id ? { ...item, disabled: true } : item));
+
+    setCartState({ loading: true, items: nextItems }, actionName);
     const data = await action();
     setCartState(getCartDetails(data), actionName);
   } catch (error) {
     console.error(error);
     setCartState({ error: true }, actionName);
   } finally {
-    setCartState({ loading: false }, actionName);
+    const { items } = useCartStore.getState();
+    const nextItems = items.map((item) => (item.id === id ? { ...item, disabled: false } : item));
+
+    setCartState({ loading: false, items: nextItems }, actionName);
   }
 };
 
@@ -54,15 +63,15 @@ export const fetchCartItems: fetchCartItemsFunc = async () => {
 
 /* Обновление количества товара в корзине */
 export const updateItemQuantity: updateItemQuantityFunc = async (id: number, quantity: number) => {
-  await handleApiRequest(() => Api.cart.patchItemQuantity(id, quantity), "user/updateItemQuantity");
+  await handleApiRequest(() => Api.cart.patchItemQuantity(id, quantity), "user/updateItemQuantity", id);
 };
 
 /* Удаление товара из корзины */
 export const removeCartItem: removeCartItemFunc = async (id: number) => {
-  await handleApiRequest(() => Api.cart.deleteCartItem(id), "user/removeCartItem");
+  await handleApiRequest(() => Api.cart.deleteCartItem(id), "user/removeCartItem", id);
 };
 
 /* Добавление товара в корзину */
-export const addCartItem: AddCartItemFunc = async (values: CreateCartItemValues) => {
+export const addCartItem: addCartItemFunc = async (values: CreateCartItemValues) => {
   await handleApiRequest(() => Api.cart.postCartItem(values), "user/addCartItem");
 };

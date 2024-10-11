@@ -8,13 +8,21 @@ import { CartButton, SearchInput } from "./components";
 import Image from "next/image";
 
 interface HeaderProps {
+  hasSearch?: boolean;
+  hasCartBtn?: boolean;
   classname?: string;
+  containerClassname?: string;
 }
 
-export const Header: FC<HeaderProps> = ({ classname }) => {
+export const Header: FC<HeaderProps> = ({
+  hasSearch = true,
+  hasCartBtn = true,
+  classname,
+  containerClassname,
+}) => {
   return (
-    <header className={cn("border border-b", classname)}>
-      <Container className="flex items-start justify-between py-8">
+    <header className={cn("border-b border-[#EDEDED]", classname)}>
+      <Container className={cn("flex items-start justify-between py-8", containerClassname)}>
         {/* Левая часть */}
         <Link href="/" className="flex items-center gap-5">
           <Image src="/logo.svg" alt="Логотип пиццы" width={48} height={48} className="scale-[1.4] " />
@@ -26,9 +34,11 @@ export const Header: FC<HeaderProps> = ({ classname }) => {
           </div>
         </Link>
 
-        <div className="mx-10 flex-1">
-          <SearchInput />
-        </div>
+        {hasSearch && (
+          <div className="mx-10 flex-1">
+            <SearchInput />
+          </div>
+        )}
 
         {/* Правая часть */}
         <div className="flex items-center gap-3">
@@ -36,7 +46,7 @@ export const Header: FC<HeaderProps> = ({ classname }) => {
             <User size={16} />
             Войти
           </Button>
-          <CartButton />
+          {hasCartBtn && <CartButton />}
         </div>
       </Container>
     </header>

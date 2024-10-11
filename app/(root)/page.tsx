@@ -11,7 +11,7 @@ export default async function Home({ searchParams }: { searchParams: GetSearchPa
 
   return (
     <>
-      <Container className="mt-10">
+      <Container className="pt-10">
         <Title text="Все продукты" size="lg" className="font-extrabold" />
       </Container>
 
