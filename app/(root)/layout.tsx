@@ -8,15 +8,13 @@ export const metadata: Metadata = {
 
 interface HomeLayoutProps {
   children: React.ReactNode;
-  modal: React.ReactNode;
 }
 
-export default function HomeLayout({ children, modal }: Readonly<HomeLayoutProps>) {
+export default function HomeLayout({ children }: Readonly<HomeLayoutProps>) {
   return (
     <>
       <Header />
       <main className="">{children}</main>
-      {modal}
     </>
   );
 }

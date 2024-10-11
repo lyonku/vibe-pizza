@@ -10,8 +10,10 @@ const nunito = Nunito({
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="ru">
@@ -21,6 +23,7 @@ export default function RootLayout({
       <body className={nunito.className}>
         {children}
         <Toaster />
+        {modal}
       </body>
     </html>
   );

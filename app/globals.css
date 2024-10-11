@@ -73,6 +73,10 @@ html {
   font-family: var(--font-nunito), sans-serif;
 }
 
+.scrollbar-hidden::-webkit-scrollbar {
+  width: 0px;
+}
+
 .scrollbar::-webkit-scrollbar {
   width: 4px;
 }
@@ -124,4 +128,40 @@ html {
 
 #nprogress .spinner-icon {
   @apply border-t-primary border-l-primary !important;
+}
+
+.animate-fade-in {
+  opacity: 0;
+  animation: fadeIn 125ms forwards;
+  animation-delay: 100ms;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 700ms forwards;
+  transform: translateY(200px);
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(200px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.white-autofill {
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px #ffffff29;
 }

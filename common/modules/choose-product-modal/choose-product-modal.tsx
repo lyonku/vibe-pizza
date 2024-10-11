@@ -22,7 +22,7 @@ export const ChooseProductModal: FC<ChooseProductModalProps> = ({ product, class
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
-    wait().then(() => router.back());
+    wait().then(() => (window.history.length > 2 ? router.back() : router.replace("/")));
   };
 
   const onSubmit = async (variantId: number, ingredients?: number[]) => {
@@ -50,7 +50,10 @@ export const ChooseProductModal: FC<ChooseProductModalProps> = ({ product, class
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={handleCloseDialog}>
-      <DialogContent className={cn("p-0 w-full max-w-[1100px] min-h-[580px] bg-white ", className)}>
+      <DialogContent
+        className={cn("p-0 w-full max-w-[1100px] min-h-[580px] bg-white ", className)}
+        onOpenAutoFocus={(e) => e.preventDefault()}
+      >
         <VisuallyHidden.Root>
           <DialogTitle>{product.name}</DialogTitle>
           <DialogDescription>Модальное окно с товаром</DialogDescription>

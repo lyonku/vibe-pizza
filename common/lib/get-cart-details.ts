@@ -23,7 +23,8 @@ export const getCartDetails = (data: CartDTO): ReturnProps => {
       name: ingredient.name,
       price: ingredient.price,
     })),
-  }));
+    disabled: false,
+  })) as PreparedCartItem[];
 
   return {
     totalAmount: data.totalAmount,

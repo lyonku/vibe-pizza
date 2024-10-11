@@ -46,7 +46,6 @@ export const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
     return (
       <div className={className}>
         <p className="font-bold">{title}</p>
-
         {...Array(limit)
           .fill(0)
           .map((_, index) => {
