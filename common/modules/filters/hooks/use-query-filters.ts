@@ -1,12 +1,13 @@
-import { useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
 import QueryString from "qs";
 import { useRouter } from "next/navigation";
 import { Filters } from "./use-filters";
+import { useUpdateEffect } from "react-use";
 
 export const useQueryFilters = (filters: Filters) => {
   const router = useRouter();
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     const params = {
       ...filters.prices,
       pizzaTypes: Array.from(filters.pizzaTypes),

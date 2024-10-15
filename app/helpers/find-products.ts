@@ -27,7 +27,7 @@ export const findProducts = async (params: GetSearchParams) => {
     include: {
       products: {
         orderBy: {
-          id: "desc",
+          id: "asc",
         },
         where: {
           ingredients: ingredientsIdArr

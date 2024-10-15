@@ -28,7 +28,7 @@ export const FormAddressInput: FC<Props> = ({ label, required, name, className }
   const errorText = errors[name]?.message as string;
 
   const onClickClear = () => {
-    setValue(name, "");
+    setValue(name, "", { shouldValidate: true });
     setInputValue("");
     setDaDataValue(undefined);
     if (inputRef.current) {
@@ -62,13 +62,13 @@ export const FormAddressInput: FC<Props> = ({ label, required, name, className }
             onChange: (e) => {
               const target = e.target as HTMLInputElement;
               setInputValue(target.value);
-              setValue(name, target.value);
+              setValue(name, target.value, { shouldValidate: true });
             },
           }}
           onChange={(data) => {
             if (data?.value) {
               setInputValue(data.value);
-              setValue(name, data.value);
+              setValue(name, data.value, { shouldValidate: true });
               setDaDataValue(data);
             }
           }}

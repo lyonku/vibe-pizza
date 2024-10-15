@@ -22,7 +22,7 @@ export const ChooseProductModal: FC<ChooseProductModalProps> = ({ product, class
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
-    wait().then(() => (window.history.length > 2 ? router.back() : router.replace("/")));
+    wait().then(() => (window.history.length > 2 ? router.back() : (window.location.href = "/")));
   };
 
   const onSubmit = async (variantId: number, ingredients?: number[]) => {
