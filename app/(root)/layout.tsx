@@ -1,3 +1,5 @@
+import { ProfileButton } from "@/common/modules/profile-button";
+import { CartButton } from "@/common/modules/cart-sheet";
 import { Header } from "@/common/modules/header";
 import type { Metadata } from "next";
 
@@ -13,7 +15,10 @@ interface HomeLayoutProps {
 export default function HomeLayout({ children }: Readonly<HomeLayoutProps>) {
   return (
     <>
-      <Header />
+      <Header>
+        <ProfileButton />
+        <CartButton />
+      </Header>
       <main className="">{children}</main>
     </>
   );

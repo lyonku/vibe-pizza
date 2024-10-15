@@ -1,25 +1,30 @@
 import { cn } from "@/common/lib/utils";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import Link from "next/link";
-import { User } from "lucide-react";
 import { Container } from "@/common/components";
-import { Button } from "@/common/ui";
-import { CartButton, SearchInput } from "./components";
+import { SearchInput } from "./components";
 import Image from "next/image";
 
 interface HeaderProps {
   hasSearch?: boolean;
-  hasCartBtn?: boolean;
   classname?: string;
+  children?: ReactNode;
   containerClassname?: string;
 }
 
-export const Header: FC<HeaderProps> = ({
-  hasSearch = true,
-  hasCartBtn = true,
-  classname,
-  containerClassname,
-}) => {
+/**
+ * Компонент Header
+ *
+ * @param {HeaderProps} props - Свойства компонента.
+ * @returns JSX элемент, представляющий шапку сайта с логотипом, опциональным поиском и элементами в правой части.
+ *
+ * @example
+ * <Header hasSearch>
+ *   <Button>Войти</Button>
+ *   <Button>Корзина</Button>
+ * </Header>
+ */
+export const Header: FC<HeaderProps> = ({ hasSearch = true, children, classname, containerClassname }) => {
   return (
     <header className={cn("border-b border-[#EDEDED]", classname)}>
       <Container className={cn("flex items-start justify-between py-8", containerClassname)}>
@@ -41,13 +46,7 @@ export const Header: FC<HeaderProps> = ({
         )}
 
         {/* Правая часть */}
-        <div className="flex items-center gap-3">
-          <Button variant="outline" className="flex items-center gap-1 h-[50px] px-5 font-semibold text-base">
-            <User size={16} />
-            Войти
-          </Button>
-          {hasCartBtn && <CartButton />}
-        </div>
+        <div className="flex items-center gap-3">{children}</div>
       </Container>
     </header>
   );

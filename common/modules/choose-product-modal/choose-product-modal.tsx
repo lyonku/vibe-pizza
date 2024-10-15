@@ -2,19 +2,18 @@
 
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/common/ui";
 import { FC, useEffect, useState } from "react";
-import { cn } from "@/common/lib/utils";
-import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import { cn, wait } from "@/common/lib/utils";
 import { useRouter } from "next/navigation";
 import { addCartItem } from "@/common/store/useCartStore";
 import toast from "react-hot-toast";
 import { ProductDTO } from "@/@types/prisma";
 import { ChoosePizzaForm, ChooseProductForm } from "./components";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 interface ChooseProductModalProps {
   product: ProductDTO;
   className?: string;
 }
-const wait = () => new Promise((resolve) => setTimeout(resolve, 200));
 
 export const ChooseProductModal: FC<ChooseProductModalProps> = ({ product, className }) => {
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -54,10 +53,10 @@ export const ChooseProductModal: FC<ChooseProductModalProps> = ({ product, class
         className={cn("p-0 w-full max-w-[1100px] min-h-[580px] bg-white ", className)}
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
-        <VisuallyHidden.Root>
+        <VisuallyHidden>
           <DialogTitle>{product.name}</DialogTitle>
           <DialogDescription>Модальное окно с товаром</DialogDescription>
-        </VisuallyHidden.Root>
+        </VisuallyHidden>
         {isPizzaForm ? (
           <ChoosePizzaForm
             imageUrl={product.imageUrl}

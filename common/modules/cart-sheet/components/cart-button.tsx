@@ -4,8 +4,8 @@ import { cn } from "@/common/lib/utils";
 import { Button } from "@/common/ui";
 import { ArrowRight, ShoppingCart } from "lucide-react";
 import { FC } from "react";
-import { CartSheet } from "./cart-sheet";
 import { useCartItems, useCartLoading, useCartTotalAmount } from "@/common/store/useCartStore";
+import { CartSheet } from "../cart-sheet";
 
 interface CartButtonProps {
   className?: string;

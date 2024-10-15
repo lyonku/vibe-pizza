@@ -14,7 +14,6 @@ import { Button, Title, SheetClose } from "@/common/ui";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Loader } from "lucide-react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { CartSheetItem } from "./cart-sheet-item";
 import { getCartItemDetails } from "@/common/lib";
 import { SizeType } from "@prisma/client";
 import { PizzaType } from "@/common/constants/pizza";
@@ -22,6 +21,7 @@ import plural from "plural-ru";
 import Image from "next/image";
 import { cn } from "@/common/lib/utils";
 import { useCart } from "@/common/hooks/use-cart";
+import { CartSheetItem } from "./components";
 
 interface CartSheetProps {
   className?: string;
