@@ -132,10 +132,10 @@ export const CartSheet: FC<PropsWithChildren<CartSheetProps>> = ({ children }) =
                 >
                   <Button
                     onClick={() => setRedirecting(true)}
-                    disabled={loading}
+                    disabled={loading || redirecting}
                     loading={redirecting}
                     type="submit"
-                    className="flex gap-3 w-full h-14 text-base font-bold rounded-2xl"
+                    className="flex gap-3 w-full h-14 text-base font-bold rounded-2xl transition-opacity delay-100"
                   >
                     К оформлению заказа
                     <ArrowRight className="w-5" />
