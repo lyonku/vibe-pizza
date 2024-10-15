@@ -11,10 +11,14 @@ import { CheckoutSidebar } from "@/common/modules/checkout-sidebar";
 import { CheckoutPersonalInfo } from "@/common/modules/checkout-personal-info";
 import { CheckoutDeliveryInfo } from "@/common/modules/checkout-delivery-info";
 import { checkoutFormSchema, CheckoutFormType } from "@/common/schemas";
+import { createOrder } from "@/app/actions";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 export default function CheckoutPage() {
   const { items, totalAmount, loading } = useCart(true);
   const isFirstLoading = loading && items.length === 0;
+  const [submitting, setSubmitting] = useState(false);
 
   const form = useForm<CheckoutFormType>({
     resolver: zodResolver(checkoutFormSchema),
@@ -25,11 +29,30 @@ export default function CheckoutPage() {
       phone: "",
       address: "",
       comment: "",
+      deliveryTime: "Побыстрее",
     },
   });
 
-  const onSubmit = (data: CheckoutFormType) => {
-    console.log(data);
+  const onSubmit = async (data: CheckoutFormType) => {
+    try {
+      setSubmitting(true);
+
+      const url = await createOrder(data);
+
+      toast.error("Заказ успешно оформлен 📝", {
+        icon: "✅",
+      });
+
+      if (url) {
+        location.href = url;
+      }
+    } catch (error) {
+      toast.error("Не удалось создать заказ", {
+        icon: "❌",
+      });
+      console.error(error);
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -51,7 +74,7 @@ export default function CheckoutPage() {
           </div>
           <CheckoutSidebar
             itemsPrice={totalAmount}
-            loading={loading}
+            loading={loading || submitting}
             isFirstLoading={isFirstLoading}
             className="w-[450px]"
           />

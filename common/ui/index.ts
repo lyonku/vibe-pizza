@@ -24,3 +24,4 @@ export { ContentBlock } from "./content-block";
 export { RequiredSymbol } from "./required-symbol";
 export { ErrorText } from "./error-text";
 export { ClearButton } from "./clear-button";
+export { HoverCard, HoverCardContent, HoverCardTrigger } from "./hover-card";

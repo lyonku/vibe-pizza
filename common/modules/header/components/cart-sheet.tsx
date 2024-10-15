@@ -137,7 +137,7 @@ export const CartSheet: FC<PropsWithChildren<CartSheetProps>> = ({ children }) =
                     type="submit"
                     className="flex gap-3 w-full h-14 text-base font-bold rounded-2xl"
                   >
-                    Оформить заказ
+                    К оформлению заказа
                     <ArrowRight className="w-5" />
                   </Button>
                 </Link>

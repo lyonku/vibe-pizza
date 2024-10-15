@@ -4,7 +4,7 @@ import { ChangeEvent, FC, useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { cn } from "@/common/lib/utils";
-import { Button, ContentBlock, Skeleton } from "@/common/ui";
+import { Button, ContentBlock, HoverCard, HoverCardContent, HoverCardTrigger, Skeleton } from "@/common/ui";
 import { CheckoutItemDetails, CheckoutPromocode } from "./components";
 import { ArrowRight, Loader, Package, Percent, Truck } from "lucide-react";
 
@@ -38,7 +38,7 @@ export const CheckoutSidebar: FC<CheckoutSidebarProps> = ({
   };
 
   const servicePrice = Number((itemsPrice * (1 / 100)).toFixed());
-  const deliverPrice = itemsPrice > 0 ? 250 : 0;
+  const deliverPrice = itemsPrice < 600 && itemsPrice > 0 ? 250 : 0;
   const totalPrice = itemsPrice + servicePrice + deliverPrice;
 
   const onChangePromocodeValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -95,12 +95,21 @@ export const CheckoutSidebar: FC<CheckoutSidebarProps> = ({
             icon={<Percent size={18} color="#B9B9B9" />}
             isFirstLoading={isFirstLoading}
           />
-          <CheckoutItemDetails
-            title="Доставка:"
-            value={deliverPrice}
-            icon={<Truck size={18} color="#B9B9B9" />}
-            isFirstLoading={isFirstLoading}
-          />
+
+          <HoverCard>
+            <HoverCardTrigger>
+              <CheckoutItemDetails
+                title="Доставка:"
+                value={deliverPrice}
+                icon={<Truck size={18} color="#B9B9B9" />}
+                isFirstLoading={isFirstLoading}
+              />
+            </HoverCardTrigger>
+            <HoverCardContent>
+              <h4 className="font-semibold text-lg mb-2">Стоймость доставки</h4>{" "}
+              <p>При заказе от 600 ₽, доставка полностью бесплатная</p>
+            </HoverCardContent>
+          </HoverCard>
         </div>
 
         <hr className="-mx-[45px] border-0 border-b border-[#F3F3F3]" />
@@ -122,7 +131,7 @@ export const CheckoutSidebar: FC<CheckoutSidebarProps> = ({
               loading && "transition-opacity delay-100"
             )}
           >
-            Перейти к оплате
+            Оформить заказ
             <ArrowRight className="w-5 ml-2" />
           </Button>
         </div>

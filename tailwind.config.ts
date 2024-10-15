@@ -58,6 +58,10 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      boxShadow: {
+        ghost: "rgba(6, 5, 50, 0.1) 0px 6px 20px",
+        lightghost: "rgba(6, 5, 50, 0.1) 0px 0px 8px",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
