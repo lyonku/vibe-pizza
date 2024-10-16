@@ -1,10 +1,10 @@
+import { Providers } from "./providers";
 import { Nunito } from "next/font/google";
 import "./globals.css";
-import { Providers } from "./providers";
 
 const nunito = Nunito({
   subsets: ["cyrillic"],
-  variable: "--font-nunito",
+  variable: "--nunito-font",
   weight: ["400", "500", "600", "700", "800", "900"],
 });
 

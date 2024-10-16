@@ -70,7 +70,7 @@ html {
 }
 
 * {
-  font-family: var(--font-nunito), sans-serif;
+  font-family: var(--nunito-font), sans-serif;
 }
 
 .scrollbar-hidden::-webkit-scrollbar {
