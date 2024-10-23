@@ -3,6 +3,7 @@ import { ClearButton, ErrorText, RequiredSymbol } from "@/common/ui";
 import { FC, useRef, useState } from "react";
 import { AddressSuggestions, DaDataAddress, DaDataSuggestion } from "react-dadata";
 import { useFormContext } from "react-hook-form";
+import { useEffectOnce } from "react-use";
 
 interface Props {
   onChange?: (value?: string) => void;
@@ -14,7 +15,6 @@ interface Props {
 
 export const FormAddressInput: FC<Props> = ({ label, required, name, className }) => {
   const [daDataValue, setDaDataValue] = useState<DaDataSuggestion<DaDataAddress> | undefined>();
-  const [inputValue, setInputValue] = useState("");
   const inputRef = useRef<any>(null);
 
   const {
@@ -29,12 +29,19 @@ export const FormAddressInput: FC<Props> = ({ label, required, name, className }
 
   const onClickClear = () => {
     setValue(name, "", { shouldValidate: true });
-    setInputValue("");
     setDaDataValue(undefined);
     if (inputRef.current) {
       inputRef.current.setInputValue("");
     }
   };
+
+  useEffectOnce(() => {
+    if (daDataValue?.value !== value) {
+      if (inputRef.current) {
+        inputRef.current.setInputValue(value);
+      }
+    }
+  });
 
   return (
     <div className={className}>
@@ -57,22 +64,20 @@ export const FormAddressInput: FC<Props> = ({ label, required, name, className }
             className:
               "flex h-12 text-md white-autofill w-full rounded-md border border-input bg-transparent px-3 py-1 shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:border-primary disabled:cursor-not-allowed disabled:opacity-50",
             placeholder: "Начните вводить адрес, и воспользуйтесь подсказкой",
-            value: inputValue,
             ...register(name),
             onChange: (e) => {
               const target = e.target as HTMLInputElement;
-              setInputValue(target.value);
               setValue(name, target.value, { shouldValidate: true });
             },
           }}
           onChange={(data) => {
             if (data?.value) {
-              setInputValue(data.value);
               setValue(name, data.value, { shouldValidate: true });
               setDaDataValue(data);
             }
           }}
           value={daDataValue}
+          defaultQuery={value}
         />
         {value && <ClearButton onClick={onClickClear} />}
       </div>

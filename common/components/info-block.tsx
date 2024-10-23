@@ -1,19 +1,18 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Button } from "@/common/ui";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/common/lib/utils";
 import { Title } from "@/common/ui";
-import Image from "next/image";
 
 interface Props {
   title: string;
   text: string;
   className?: string;
-  imageUrl: string;
+  image?: ReactNode;
 }
 
-export const InfoBlock: React.FC<Props> = ({ className, title, text, imageUrl }) => {
+export const InfoBlock: React.FC<Props> = ({ className, title, text, image }) => {
   return (
     <div className={cn(className, "flex items-center justify-between gap-20")}>
       <div className="flex flex-col gap-11">
@@ -43,7 +42,7 @@ export const InfoBlock: React.FC<Props> = ({ className, title, text, imageUrl })
         </div>
       </div>
 
-      <Image src={imageUrl} alt={title} width={300} height={305} />
+      {image}
     </div>
   );
 };

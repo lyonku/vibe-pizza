@@ -5,3 +5,4 @@ export { ProductVariants } from "./product-variants";
 export { IngredientItem } from "./ingredient-item";
 export { GhostButton } from "./ghost-button";
 export { InfoBlock } from "./info-block";
+export { NotAuth } from "./not-auth";

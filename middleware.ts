@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export function middleware(request: Request) {
+export async function middleware(request: Request) {
   const url = new URL(request.url);
   const origin = url.origin;
   const pathname = url.pathname;

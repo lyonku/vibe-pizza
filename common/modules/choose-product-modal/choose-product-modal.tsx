@@ -46,7 +46,6 @@ export const ChooseProductModal: FC<ChooseProductModalProps> = ({ product, class
   }, [product]);
 
   const isPizzaForm = Boolean(product.variants[0].pizzaType);
-
   return (
     <Dialog open={isDialogOpen} onOpenChange={handleCloseDialog}>
       <DialogContent

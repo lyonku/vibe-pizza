@@ -114,14 +114,14 @@ async function up() {
   await prisma.user.createMany({
     data: [
       {
-        fullName: "User",
+        firstName: "User",
         email: "user@test.ru",
         password: hashSync("111111", 10),
         verified: new Date(),
         role: "USER",
       },
       {
-        fullName: "Admin",
+        firstName: "Admin",
         email: "admin@test.ru",
         password: hashSync("111111", 10),
         verified: new Date(),

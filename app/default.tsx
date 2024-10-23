@@ -4,6 +4,7 @@ import HomeLayout from "./(root)/layout";
 import Home from "./(root)/page";
 import { GetSearchParams } from "./helpers";
 import { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Vibe pizza | Главная",
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ searchParams }: { searchParams: GetSearchParams }) {
   const headersList = headers();
   const pathname = headersList.get("x-pathname") || "";
-  const isModal = pathname.startsWith("/product/") || pathname.startsWith("/auth");
+  const isModal = pathname.startsWith("/product/") || pathname.startsWith("/login");
 
   return (
     <HomeLayout>
@@ -24,7 +25,7 @@ export default function RootLayout({ searchParams }: { searchParams: GetSearchPa
           <InfoBlock
             title="Страница не найдена"
             text="Проверьте корректность введённого адреса или повторите попытку позже"
-            imageUrl="/images/not-found.svg"
+            image={<Image src="/images/not-found.svg" alt="" width={340} height={345} />}
           />
         </div>
       )}

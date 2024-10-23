@@ -11,11 +11,15 @@ datasource db {
 model User {
     id Int @id @default(autoincrement())
 
-    fullName String
-    email    String   @unique
-    password String
-    role     UserRole @default(USER)
-    verified DateTime
+    firstName String
+    lastName  String?
+    email     String    @unique
+    password  String
+    role      UserRole  @default(USER)
+    verified  DateTime?
+    address   String?
+    birthday  DateTime?
+    phone     String?
 
     provider   String?
     providerId String?
@@ -131,7 +135,8 @@ model Order {
 
     items Json
 
-    fullName     String
+    firstName    String
+    lastName     String?
     email        String
     phone        String
     address      String

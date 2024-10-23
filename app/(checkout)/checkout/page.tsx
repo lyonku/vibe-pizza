@@ -14,11 +14,15 @@ import { checkoutFormSchema, CheckoutFormType } from "@/common/schemas";
 import { createOrder } from "@/app/actions";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 export default function CheckoutPage() {
   const { items, totalAmount, loading } = useCart(true);
   const isFirstLoading = loading && items.length === 0;
   const [submitting, setSubmitting] = useState(false);
+  const { data: session } = useSession();
+
+  console.log(session);
 
   const form = useForm<CheckoutFormType>({
     resolver: zodResolver(checkoutFormSchema),
