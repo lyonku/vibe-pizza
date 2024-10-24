@@ -343,3 +343,21 @@ export async function resendCode(type: "email" | "phone", email: string, phone: 
     throw error;
   }
 }
+
+// export async function syncCart(userId, cartToken) {
+//   try {
+//     const findUser = await prisma.user.findFirst({
+//       where: {
+//         id: userId
+//       },
+//     });
+
+//     if (!findUser) {
+//       throw new Error("Пользователь не найден");
+//     }
+
+//   } catch (error) {
+//     console.error("Error [RESEND_CODE]", error);
+//     throw error;
+//   }
+// }

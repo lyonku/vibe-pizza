@@ -17,9 +17,10 @@ import { useDebounce } from "react-use";
 
 interface ProfileButtonProps {
   className?: string;
+  isAuthorize?: boolean;
 }
 
-export const ProfileButton: FC<ProfileButtonProps> = ({ className }) => {
+export const ProfileButton: FC<ProfileButtonProps> = ({ className, isAuthorize }) => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [debouncedDropdown, setDebouncedDropdown] = useState(false);
 
@@ -41,7 +42,7 @@ export const ProfileButton: FC<ProfileButtonProps> = ({ className }) => {
 
   return (
     <div className={cn("", className)}>
-      {session ? (
+      {isAuthorize || session ? (
         <DropdownMenu modal={false} open={debouncedDropdown} onOpenChange={() => setOpenDropdown(false)}>
           <DropdownMenuTrigger asChild>
             <Link href="/profile" className="cursor-pointer">
@@ -52,7 +53,7 @@ export const ProfileButton: FC<ProfileButtonProps> = ({ className }) => {
                 onMouseLeave={() => setOpenDropdown(false)}
               >
                 <User size={16} />
-                {session ? "Профиль" : "Войти"}
+                Профиль
               </Button>
             </Link>
           </DropdownMenuTrigger>

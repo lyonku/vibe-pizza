@@ -147,24 +147,24 @@ async function up() {
   await createProducts();
 
   // Создание корзин
-  await prisma.cart.createMany({
-    data: [
-      { userId: 1, totalAmount: 0, token: "11111" },
-      { userId: 2, totalAmount: 0, token: "11111" },
-    ],
-  });
+  // await prisma.cart.createMany({
+  //   data: [
+  //     { userId: 1, totalAmount: 0, token: "11111" },
+  //     { userId: 2, totalAmount: 0, token: "11111" },
+  //   ],
+  // });
 
   // Пример создания элемента корзины
-  await prisma.cartItem.create({
-    data: {
-      productVariantId: 1, // ID варианта продукта
-      cartId: 1, // ID корзины
-      quantity: 1,
-      ingredients: {
-        connect: [{ id: 1 }, { id: 2 }, { id: 3 }], // Подключение ингредиентов
-      },
-    },
-  });
+  // await prisma.cartItem.create({
+  //   data: {
+  //     productVariantId: 1, // ID варианта продукта
+  //     cartId: 1, // ID корзины
+  //     quantity: 1,
+  //     ingredients: {
+  //       connect: [{ id: 1 }, { id: 2 }, { id: 3 }], // Подключение ингредиентов
+  //     },
+  //   },
+  // });
 }
 
 // Очищаем базу данных

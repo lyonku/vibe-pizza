@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import { ListCollapse, LogOut, MessageCircleWarning, Settings } from "lucide-react";
+import { ListCollapse, LogOut, Settings } from "lucide-react";
 import { Button } from "@/common/ui";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
@@ -31,11 +31,11 @@ export const ProfileSidebar: FC<ProfileSidebarProps> = () => {
           <ListCollapse strokeWidth={1.5} /> Заказы
         </NavButton>
       </Link>
-      <Link href="/profile/settings">
+      {/* <Link href="/profile/settings">
         <NavButton>
           <MessageCircleWarning strokeWidth={1.5} /> Обратная связь
         </NavButton>
-      </Link>
+      </Link> */}
       <hr className="-mx-[20px] border-0 border-b border-[#F3F3F3]" />
       <Button variant="ghost" className="gap-2 text-base w-full justify-start" onClick={onClickSignOut}>
         <LogOut strokeWidth={1.5} /> Выйти из профиля

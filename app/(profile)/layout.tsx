@@ -21,7 +21,7 @@ export default async function CheckoutLayout({ children }: Readonly<{ children: 
         containerClassname="border-b border-[#DEDEDE]"
         hasSearch={false}
       >
-        <ProfileButton />
+        <ProfileButton isAuthorize={Boolean(session?.id)} />
         <CartButton />
       </Header>
       <main className="flex-1 bg-[#F4F1EE]">

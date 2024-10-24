@@ -16,7 +16,6 @@ model User {
     email     String    @unique
     password  String
     role      UserRole  @default(USER)
-    verified  DateTime?
     address   String?
     birthday  DateTime?
     phone     String?
@@ -27,6 +26,7 @@ model User {
     cart             Cart?
     orders           Order[]
     verificationCode VerificationCode?
+    verified         DateTime?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

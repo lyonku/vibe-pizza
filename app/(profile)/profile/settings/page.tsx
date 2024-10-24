@@ -5,7 +5,6 @@ import { prisma } from "@/prisma/prisma-client";
 
 export default async function ProfileSettingsPage() {
   const session = await getUserSession();
-  console.log(session);
 
   if (!session) {
     return <NotAuth />;
