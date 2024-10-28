@@ -18,10 +18,10 @@ export default async function Home({ searchParams }: { searchParams: GetSearchPa
       {/* Верхняя панель с категориями и сортировкой */}
       <TopBar categories={categories} />
 
-      <Container className="flex gap-[80px] mt-10 pb-14 ">
+      <Container className="relative flex mt-10 pb-14 ">
         {/* Фильтрация */}
         <Suspense>
-          <Filters className="w-[250px]" />
+          <Filters />
         </Suspense>
 
         {/* Список товаров */}

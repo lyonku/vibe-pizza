@@ -5,7 +5,7 @@ export { Drawer } from "./drawer";
 export { Input } from "./input";
 export { Textarea } from "./textarea";
 export { Popover, PopoverAnchor, PopoverContent, PopoverTrigger } from "./popover";
-export { Select } from "./select";
+export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
 export { Skeleton } from "./skeleton";
 export { Slider } from "./slider";
 export { RangeSlider } from "./range-slider";

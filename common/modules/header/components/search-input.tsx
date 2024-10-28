@@ -67,7 +67,7 @@ export const SearchInput: FC<SearchInputProps> = (className) => {
         <input
           className="rounded-2xl outline-none w-full bg-[#F9F9F9] pl-12 placeholder-[#C0C0C0]"
           type="text"
-          placeholder="Поиск пиццы..."
+          placeholder="Поиск..."
           onFocus={handleInputFocus}
           onChange={handleChangeInput}
           value={searchQuery}

@@ -3,33 +3,48 @@
 import { cn } from "@/common/lib/utils";
 import { Button } from "@/common/ui";
 import { ArrowRight, ShoppingCart } from "lucide-react";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useCartItems, useCartLoading, useCartTotalAmount } from "@/common/store/useCartStore";
 import { CartSheet } from "../cart-sheet";
+import { useDebounce } from "react-use";
 
 interface CartButtonProps {
+  needRunFetch?: boolean;
   className?: string;
 }
 
-export const CartButton: FC<CartButtonProps> = ({ className }) => {
+export const CartButton: FC<CartButtonProps> = ({ className, needRunFetch }) => {
   const items = useCartItems();
   const totalAmount = useCartTotalAmount();
   const loading = useCartLoading();
 
-  const isEmptyCart = items.length === 0;
+  const [debouncedLoading, setDebouncedLoading] = useState(loading);
+  const [isEmptyCart, setEmptyCart] = useState(items.length === 0);
+
+  useDebounce(
+    () => {
+      setDebouncedLoading(loading);
+      setTimeout(() => {
+        setEmptyCart(items.length === 0);
+      }, 100);
+    },
+    150,
+    [loading]
+  );
 
   return (
-    <CartSheet>
+    <CartSheet needRunFetch={needRunFetch}>
       <Button
         isLoadingOver={!isEmptyCart}
-        loading={loading}
+        loading={debouncedLoading}
         className={cn(
-          "group relative h-[50px] px-5 text-base",
-          isEmptyCart && "px-4",
-          loading && isEmptyCart && "px-[14px]",
+          "group relative h-[50px] w-[50px] p-3 text-base animate-cart-button transition-all overflow-hidden",
+          !isEmptyCart &&
+            (totalAmount > 10000 ? "w-[165px]" : totalAmount < 1000 ? "w-[140px]" : "w-[150px]"),
+          isEmptyCart && "text-primary bg-white border border-primary",
           className
         )}
-        variant={isEmptyCart ? "outline" : "default"}
+        variant={"default"}
       >
         {isEmptyCart ? (
           <ShoppingCart size={16} className="relative" strokeWidth={2.5} />

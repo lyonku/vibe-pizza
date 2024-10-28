@@ -24,11 +24,12 @@ import { useCart } from "@/common/hooks/use-cart";
 import { CartSheetItem } from "./components";
 
 interface CartSheetProps {
+  needRunFetch?: boolean;
   className?: string;
 }
 
-export const CartSheet: FC<PropsWithChildren<CartSheetProps>> = ({ children }) => {
-  const { items, totalAmount, loading, removeCartItem, updateItemQuantity } = useCart(true);
+export const CartSheet: FC<PropsWithChildren<CartSheetProps>> = ({ children, needRunFetch = true }) => {
+  const { items, totalAmount, loading, removeCartItem, updateItemQuantity } = useCart(needRunFetch);
   const [redirecting, setRedirecting] = useState(false);
 
   const onClickCountBtn = (id: number, quantity: number, type: "plus" | "minus") => {
