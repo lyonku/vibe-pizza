@@ -1,5 +1,3 @@
-import { hashSync } from "bcrypt";
-
 export const categories = [
   {
     name: "Пиццы",
@@ -18,113 +16,278 @@ export const categories = [
   },
 ];
 
-export const ingredients = [
+export const additives = [
   {
+    id: 1,
     name: "Сырный бортик",
     price: 179,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/99f5cb91225b4875bd06a26d2e842106.png",
   },
   {
+    id: 2,
     name: "Сливочная моцарелла",
     price: 79,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/cdea869ef287426386ed634e6099a5ba.png",
   },
   {
+    id: 3,
     name: "Сыры чеддер и пармезан",
     price: 79,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA69C1FE796",
   },
   {
+    id: 4,
     name: "Острый перец халапеньо",
     price: 59,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/11ee95b6bfdf98fb88a113db92d7b3df.png",
   },
   {
+    id: 5,
     name: "Нежный цыпленок",
     price: 79,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A39D824A82E11E9AFA5B328D35A",
   },
   {
+    id: 6,
     name: "Шампиньоны",
     price: 59,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA67259A324",
   },
   {
+    id: 7,
     name: "Ветчина",
     price: 79,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A39D824A82E11E9AFA61B9A8D61",
   },
   {
+    id: 8,
     name: "Пикантная пепперони",
     price: 79,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA6258199C3",
   },
   {
+    id: 9,
     name: "Острая чоризо",
     price: 79,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA62D5D6027",
   },
   {
+    id: 10,
     name: "Маринованные огурчики",
     price: 59,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A21DA51A81211E9EA89958D782B",
   },
   {
+    id: 11,
     name: "Свежие томаты",
     price: 59,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A39D824A82E11E9AFA7AC1A1D67",
   },
   {
+    id: 12,
     name: "Красный лук",
     price: 59,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA60AE6464C",
   },
   {
+    id: 13,
     name: "Сочные ананасы",
     price: 59,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A21DA51A81211E9AFA6795BA2A0",
   },
   {
+    id: 14,
     name: "Итальянские травы",
     price: 39,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/370dac9ed21e4bffaf9bc2618d258734.png",
   },
   {
+    id: 15,
     name: "Сладкий перец",
     price: 59,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A22FA54A81411E9AFA63F774C1B",
   },
   {
+    id: 16,
     name: "Кубики брынзы",
     price: 79,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A39D824A82E11E9AFA6B0FFC349",
   },
   {
+    id: 17,
     name: "Митболы",
     price: 79,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/b2f3a5d5afe44516a93cfc0d2ee60088.png",
   },
   {
+    id: 18,
     name: "Креветки",
     price: 199,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/11eee5d51d4c576da0f0db611c8947bd.webp",
   },
   {
+    id: 19,
     name: "Баварские колбаски",
     price: 129,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/11ee9d3660793feda24a236677d3013e.webp",
   },
   {
+    id: 20,
     name: "Бекон",
     price: 79,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/000D3A39D824A82E11E9AFA637AAB68F",
   },
   {
+    id: 21,
     name: "Пряная говядина",
     price: 119,
     imageUrl: "https://cdn.dodostatic.net/static/Img/Ingredients/11ef5ed5f8f64595a6d6a99c1fe6f7f0.webp",
   },
-].map((obj, index) => ({ id: index + 1, ...obj }));
+];
+
+export const ingredients = [
+  {
+    id: 1,
+    name: "Моцарелла",
+    removable: false,
+  },
+  {
+    id: 2,
+    name: "Сыры чеддер и пармезан",
+    removable: false,
+  },
+  {
+    id: 3,
+    name: "Увеличенная порция моцареллы",
+    removable: false,
+  },
+  {
+    id: 4,
+    name: "Чеснок",
+  },
+  {
+    id: 5,
+    name: "Острый перец халапеньо",
+  },
+  {
+    id: 6,
+    name: "Цыпленок",
+  },
+  {
+    id: 7,
+    name: "Шампиньоны",
+  },
+  {
+    id: 8,
+    name: "Ветчина",
+  },
+  {
+    id: 9,
+    name: "Пикантная пепперони",
+  },
+  {
+    id: 10,
+    name: "Острые колбаски чоризо",
+  },
+  {
+    id: 11,
+    name: "Маринованные огурчики",
+  },
+  {
+    id: 12,
+    name: "Томаты",
+  },
+  {
+    id: 13,
+    name: "Красный лук",
+  },
+  {
+    id: 14,
+    name: "Сочные ананасы",
+  },
+  {
+    id: 15,
+    name: "Итальянские травы",
+  },
+  {
+    id: 16,
+    name: "Сладкий перец",
+  },
+  {
+    id: 17,
+    name: "Кубики брынзы",
+  },
+  {
+    id: 18,
+    name: "Митболы",
+  },
+  {
+    id: 19,
+    name: "Креветки",
+  },
+  {
+    id: 20,
+    name: "Баварские колбаски",
+  },
+  {
+    id: 21,
+    name: "Бекон",
+  },
+  {
+    id: 22,
+    name: "Пряная говядина",
+  },
+  {
+    id: 23,
+    name: "Грибной соус",
+    removable: false,
+  },
+  {
+    id: 24,
+    name: "Фирменный соус альфредо",
+    removable: false,
+  },
+  {
+    id: 25,
+    name: "Фирменный томатный соус",
+    removable: false,
+  },
+  {
+    id: 26,
+    name: "Острый соус аджика",
+    removable: false,
+  },
+  {
+    id: 27,
+    name: "Ароматный грибной соус",
+    removable: false,
+  },
+  {
+    id: 28,
+    name: "Cоус песто",
+    removable: false,
+  },
+  {
+    id: 29,
+    name: "Cоус бургер",
+    removable: false,
+  },
+  {
+    id: 30,
+    name: "Соус ранч",
+    removable: false,
+  },
+  {
+    id: 31,
+    name: "Сырный соус",
+    removable: false,
+  },
+  {
+    id: 32,
+    name: "Соус барбекю",
+    removable: false,
+  },
+];
 
 export const products = [
   {
@@ -134,6 +297,7 @@ export const products = [
     categoryId: 2,
     variants: [{ weight: 110, size: 1 }],
     sizeType: "PIECES",
+    isNew: true,
   },
   {
     name: "Омлет с пепперони",
@@ -142,6 +306,7 @@ export const products = [
     categoryId: 2,
     variants: [{ weight: 110, size: 1 }],
     sizeType: "PIECES",
+    isNew: true,
   },
   {
     name: "Омлет с беконом",
@@ -150,6 +315,7 @@ export const products = [
     categoryId: 2,
     variants: [{ weight: 130, size: 1 }],
     sizeType: "PIECES",
+    isNew: true,
   },
   {
     name: "Омлет сырный",
@@ -158,6 +324,7 @@ export const products = [
     categoryId: 2,
     variants: [{ weight: 100, size: 1 }],
     sizeType: "PIECES",
+    isNew: true,
   },
   {
     name: "Сырники со сгущенным молоком",
@@ -189,6 +356,7 @@ export const products = [
     categoryId: 3,
     variants: [{ weight: 300, size: 1 }],
     sizeType: "PIECES",
+    isNew: true,
   },
   {
     name: "Паста Мясная",
@@ -221,6 +389,7 @@ export const products = [
     categoryId: 3,
     variants: [{ weight: 210, size: 1 }],
     sizeType: "PIECES",
+    isNew: true,
   },
   {
     name: "Вайбич ветчина и сыр",
@@ -240,6 +409,7 @@ export const products = [
       { weight: 180, size: 2 },
     ],
     sizeType: "PORTIONS",
+    isVegan: true,
   },
   {
     name: "Картофель из печи 🌱",
@@ -251,6 +421,7 @@ export const products = [
       { weight: 160, size: 2 },
     ],
     sizeType: "PORTIONS",
+    isVegan: true,
   },
   {
     name: "Куриные наггетсы",
@@ -278,6 +449,7 @@ export const products = [
     categoryId: 3,
     variants: [{ weight: 190, size: 1 }],
     sizeType: "PIECES",
+    isSpicy: true,
   },
   {
     name: "Вайбстер с ветчиной",
@@ -294,6 +466,7 @@ export const products = [
     categoryId: 4,
     variants: [{ weight: 300, size: 0.3 }],
     sizeType: "LITERS",
+    isNew: true,
   },
   {
     name: "Шоколадный молочный коктейль",
@@ -312,7 +485,7 @@ export const products = [
     sizeType: "LITERS",
   },
   {
-    name: "Классический молочный коктейль 👶",
+    name: "Классический молочный коктейль",
     desc: "В мире так много коктейлей, но классика — вечна. Попробуйте наш молочный напиток с мороженым",
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE796F93FB126693F96CB1D3E403FB.webp",
     categoryId: 4,
@@ -367,103 +540,112 @@ export const products = [
 export const pizzas = [
   {
     name: "Бефстроганов",
-    desc: "Пряная говядина, шампиньоны, ароматный грибной соус, маринованные огурчики, моцарелла, красный лук, фирменный соус альфредо",
+    ingredients: [22, 7, 27, 11, 1, 13, 24],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EEF9E4417B796B852CA22778AB59F7.webp",
     categoryId: 1,
+    isNew: true,
   },
   {
     name: "Мясная с аджикой 🌶️🌶️",
-    desc: "Баварские колбаски, острый соус аджика, острые колбаски чоризо, цыпленок, пикантная пепперони, моцарелла, фирменный томатный соус",
+    ingredients: [20, 26, 10, 6, 9, 1, 25],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EF438E9DE514FB9742C94B62F9AA66.webp",
     categoryId: 1,
+    isSpicy: true,
+    isNew: true,
   },
   {
     name: "Креветки со сладким чили",
-    desc: "Креветки, ананасы, соус сладкий чили, сладкий перец, моцарелла, фирменный соус альфредо",
+    ingredients: [19, 14, 16, 1, 24],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EEFB595D8EFBFD84DD0BAA86BD6B64.webp",
     categoryId: 1,
+    isNew: true,
   },
   {
-    name: "Двойной цыпленок ",
-    desc: "Цыпленок, моцарелла, фирменный соус альфредо",
+    name: "Двойной цыпленок",
+    ingredients: [6, 1, 24],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE7D614D1BB6CB8DED93790D79E466.webp",
     categoryId: 1,
   },
   {
     name: "Жюльен",
-    desc: "Цыпленок, шампиньоны, ароматный грибной соус, лук, сухой чеснок, моцарелла, смесь сыров чеддер и пармезан, фирменный соус альфредо",
+    ingredients: [6, 7, 27, 13, 4, 1, 2, 24],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE7D61762B28A4ADBCB9A502D3E644.webp",
     categoryId: 1,
   },
   {
     name: "Хайповый микс",
-    desc: "Бекон, цыпленок, ветчина, сыры чеддер и пармезан, соус песто, кубики брынзы, томаты, красный лук, моцарелла, фирменный соус альфредо, чеснок, итальянские травы",
+    ingredients: [21, 6, 8, 2, 28, 17, 12, 13, 1, 24, 4, 15],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EEE2431ADD0338AE036C746E9566A6.webp",
     categoryId: 1,
+    isPopular: true,
   },
   {
     name: "Песто",
-    desc: "Цыпленок, соус песто, кубики брынзы, томаты, моцарелла, фирменный соус альфредо",
+    ingredients: [6, 28, 17, 12, 1, 24],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE7D613BE37FDEB9EC820896BF8D3C.webp",
     categoryId: 1,
+    isPopular: true,
   },
   {
     name: "Диабло 🌶️🌶️",
-    desc: "Острые колбаски чоризо, острый перец халапеньо, соус барбекю, митболы из говядины, томаты, сладкий перец, красный лук, моцарелла, фирменный томатный соус",
+    ingredients: [10, 5, 32, 18, 12, 16, 13, 1, 25],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE7D6149EB101D8727573088FA2EFF.webp",
     categoryId: 1,
+    isSpicy: true,
   },
   {
     name: "Пепперони фреш",
-    desc: "Пикантная пепперони, увеличенная порция моцареллы, томаты, фирменный томатный соус",
+    ingredients: [9, 3, 12, 25],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE7D6130241E75B0AB33725248C0D0.webp",
     categoryId: 1,
   },
   {
     name: "Сырная",
-    desc: "Моцарелла, сыры чеддер и пармезан, фирменный соус альфредо",
+    ingredients: [1, 2, 24],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE7D610CF7E265B7C72BE5AE757CA7.webp",
     categoryId: 1,
   },
   {
     name: "Чоризо фреш",
-    desc: "Острые колбаски чоризо, сладкий перец, моцарелла, фирменный томатный соус",
+    ingredients: [10, 16, 1, 25],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE7D61706D472F9A5D71EB94149304.webp",
     categoryId: 1,
   },
   {
     name: "Аррива!",
-    desc: "Цыпленок, острые колбаски чоризо, соус бургер, сладкий перец, красный лук, томаты, моцарелла, соус ранч, чеснок",
+    ingredients: [6, 10, 29, 16, 13, 12, 1, 30, 4],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE7D6134BC4150BDD8E792D866AB52.webp",
     categoryId: 1,
+    isPopular: true,
   },
   {
     name: "Бургер-пицца",
-    desc: "Ветчина, маринованные огурчики, томаты, красный лук, чеснок, соус бургер, моцарелла, фирменный томатный соус",
+    ingredients: [8, 11, 12, 13, 4, 29, 1, 25],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE7D61698827EE9B8DB6D0AEC53410.webp",
     categoryId: 1,
   },
   {
     name: "Маргарита 🌱",
-    desc: "Увеличенная порция моцареллы, томаты, итальянские травы, фирменный томатный соус",
+    ingredients: [3, 12, 15, 25],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE7D6105EF6690B86FBDE6150B5B0C.webp",
     categoryId: 1,
+    isVegan: true,
   },
   {
     name: "Цыпленок барбекю",
-    desc: "Цыпленок, бекон, соус барбекю, красный лук, моцарелла, фирменный томатный соус",
+    ingredients: [6, 21, 32, 13, 1, 25],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE7D6110059795842D40396BCF1E73.webp",
     categoryId: 1,
   },
   {
     name: "Гавайская",
-    desc: "Двойная порция цыпленка, ананасы, моцарелла, фирменный соус альфредо",
+    ingredients: [6, 6, 14, 1, 24],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE7D617E9339CFB185921A343AD8FD.webp",
     categoryId: 1,
   },
   {
     name: "Четыре сезона",
-    desc: "Увеличенная порция моцареллы, ветчина, пикантная пепперони, кубики брынзы, томаты, шампиньоны, итальянские травы, фирменный томатный соус",
+    ingredients: [3, 8, 9, 17, 12, 7, 15, 25],
     imageUrl: "https://media.dodostatic.net/image/r:584x584/11EE7D611ADF5AAD898B8B651186E023.webp",
     categoryId: 1,
   },

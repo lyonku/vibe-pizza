@@ -45,10 +45,16 @@ model Product {
     id Int @id @default(autoincrement())
 
     name     String
-    desc     String
+    desc     String?
     imageUrl String
 
+    isNew     Boolean?
+    isVegan   Boolean?
+    isSpicy   Boolean?
+    isPopular Boolean?
+
     ingredients Ingredient[]
+    additives   Additive[]
     variants    ProductVariant[]
 
     category   Category @relation(fields: [categoryId], references: [id])
@@ -74,12 +80,25 @@ model ProductVariant {
     productId Int
 }
 
-model Ingredient {
+model Additive {
     id Int @id @default(autoincrement())
 
     name     String
     price    Int
     imageUrl String
+
+    products  Product[]
+    cartItems CartItem[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Ingredient {
+    id Int @id @default(autoincrement())
+
+    name      String
+    removable Boolean @default(true)
 
     products  Product[]
     cartItems CartItem[]
@@ -116,6 +135,7 @@ model CartItem {
     quantity Int @default(1)
 
     ingredients Ingredient[]
+    additives   Additive[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

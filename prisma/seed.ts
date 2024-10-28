@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { hashSync } from "bcrypt";
-import { categories, ingredients, pizzas, products } from "./constants";
+import { additives, categories, ingredients, pizzas, products } from "./constants";
 
 const prisma = new PrismaClient();
 
@@ -67,12 +67,18 @@ async function createPizzas() {
     const createdPizza = await prisma.product.create({
       data: {
         name: pizza.name,
-        desc: pizza.desc,
         imageUrl: pizza.imageUrl,
         categoryId: pizza.categoryId,
-        ingredients: {
-          connect: ingredients,
+        additives: {
+          connect: additives,
         },
+        ingredients: {
+          connect: pizza.ingredients.map((ingredientId) => ({ id: ingredientId })),
+        },
+        isNew: pizza.isNew,
+        isVegan: pizza.isVegan,
+        isSpicy: pizza.isSpicy,
+        isPopular: pizza.isPopular,
       },
     });
 
@@ -136,6 +142,10 @@ async function up() {
   });
 
   // Создание ингредиентов
+  await prisma.additive.createMany({
+    data: additives,
+  });
+
   await prisma.ingredient.createMany({
     data: ingredients,
   });

@@ -12,9 +12,9 @@ import { useCartLoading } from "@/common/store/useCartStore";
 interface ChooseProductFormProps {
   imageUrl: string;
   name: string;
-  desc: string;
+  desc: string | null;
   variants: ProductVariant[];
-  onSubmit: (variantId: number, ingredients?: number[]) => void;
+  onSubmit: (variantId: number, additives?: number[]) => void;
   className?: string;
 }
 

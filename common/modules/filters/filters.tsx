@@ -34,8 +34,8 @@ export const Filters: FC<FiltersProps> = ({ className }) => {
       </Button>
       <div
         className={cn(
-          "flex flex-col gap-5 transition-all -ml-[250px]",
-          isFiltersOpen && "w-[250px] mr-[80px] ml-0"
+          "flex flex-col gap-5 transition-all -ml-[250px] w-[250px]",
+          isFiltersOpen && " mr-[80px] ml-0"
         )}
       >
         <Title text="Фильтрация" size="sm" className="font-bold" />

@@ -1,6 +1,6 @@
-import { Ingredient } from "@prisma/client";
+import { Additive } from "@prisma/client";
 
-export const AreIngredientsEqual = (arr1: Ingredient[], arr2: number[]) => {
+export const AreAdditivesEqual = (arr1: Additive[], arr2: number[]) => {
   if (arr1.length !== arr2?.length) {
     return false;
   }

@@ -24,16 +24,16 @@ export async function GET(req: NextRequest) {
             cartId: findTokenCart.id,
           },
           include: {
-            ingredients: true,
+            additives: true,
           },
         });
 
         for (const item of findTokenCartItems) {
-          const ingredientIds = item.ingredients.map((ingredient) => ingredient.id);
+          const additivesIds = item.additives.map((additive) => additive.id);
 
           await addOrUpdateCart(findUserCart, {
             productVariantId: item.productVariantId,
-            ingredients: ingredientIds,
+            additives: additivesIds,
           });
         }
 
@@ -73,7 +73,7 @@ export async function GET(req: NextRequest) {
                 product: true,
               },
             },
-            ingredients: true,
+            additives: true,
           },
         },
       },

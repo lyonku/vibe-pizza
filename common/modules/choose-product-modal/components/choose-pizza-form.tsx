@@ -2,9 +2,9 @@
 
 import { FC } from "react";
 import { cn } from "@/common/lib/utils";
-import { IngredientItem, PizzaImage, ProductVariants } from "@/common/components";
+import { AdditiveItem, PizzaImage, ProductVariants } from "@/common/components";
 import { mapPizzaType, PizzaSize, PizzaType, pizzaTypes } from "@/common/constants/pizza";
-import { Ingredient, ProductVariant } from "@prisma/client";
+import { Additive, Ingredient, ProductVariant } from "@prisma/client";
 import { Button, Title } from "@/common/ui";
 import { usePizzaOptions } from "../hooks";
 import { calcTotalPizzaPrice } from "../helpers";
@@ -13,7 +13,7 @@ import { useCartLoading } from "@/common/store/useCartStore";
 interface ChoosePizzaFormProps {
   imageUrl: string;
   name: string;
-  desc: string;
+  additives: Additive[];
   ingredients: Ingredient[];
   variants: ProductVariant[];
   onSubmit: (variantId: number, ingredients: number[]) => void;
@@ -22,17 +22,17 @@ interface ChoosePizzaFormProps {
 
 export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({
   name,
-  desc,
   imageUrl,
   ingredients,
   className,
   onSubmit,
   variants,
+  additives,
 }) => {
-  const { size, type, weight, selectedIngredients, availablePizzaSizes, setSize, setType, toggleIngredient } =
+  const { size, type, weight, selectedAdditives, availablePizzaSizes, setSize, setType, toggleAdditive } =
     usePizzaOptions(variants);
   const loading = useCartLoading();
-  const totalPrice = calcTotalPizzaPrice(type, size, variants, ingredients, selectedIngredients);
+  const totalPrice = calcTotalPizzaPrice(type, size, variants, additives, selectedAdditives);
   const textDetails = `${size} см, ${mapPizzaType[type].toLowerCase()} тесто, ${weight} г`;
 
   const handleClickAddCart = async () => {
@@ -41,14 +41,18 @@ export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({
     )?.id;
 
     if (currentVariantId) {
-      onSubmit(currentVariantId, Array.from(selectedIngredients));
+      onSubmit(currentVariantId, Array.from(selectedAdditives));
     }
   };
 
   // Скрытие ингредиента (сырного бортика) для пиццы с тонким тестом или маленьким размером
-  const shouldHideCheesyBorder = (ingredient: Ingredient) => {
-    return ingredient.name === "Сырный бортик" && (type === 2 || size === 20);
+  const shouldHideCheesyBorder = (additive: Additive) => {
+    return additive.name === "Сырный бортик" && (type === 2 || size === 20);
   };
+
+  const ingredientsDesc = ingredients
+    .map((ingredient, index) => (index === 0 ? ingredient.name : ingredient.name.toLowerCase()))
+    .join(", ");
 
   return (
     <div className={cn(className, "flex flex-1")}>
@@ -59,7 +63,7 @@ export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({
           <div className="flex flex-col">
             <Title text={name} size="md" className="font-extrabold" />
             <p className="text-sm text-[#777777] mb-3">{textDetails}</p>
-            <p className="text-sm">{desc}</p>
+            <p className="text-sm">{ingredientsDesc}</p>
           </div>
 
           <div className="flex flex-col gap-2 mb-4">
@@ -78,21 +82,21 @@ export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({
           <Title text="Добавить по вкусу" size="sm" className="font-bold text-lg" />
 
           <div className="grid grid-cols-3 gap-3 mb-4">
-            {ingredients.map((ingredient, index) => {
-              if (shouldHideCheesyBorder(ingredient)) {
-                if (selectedIngredients.has(ingredient.id)) {
-                  toggleIngredient(ingredient.id);
+            {additives.map((additive, index) => {
+              if (shouldHideCheesyBorder(additive)) {
+                if (selectedAdditives.has(additive.id)) {
+                  toggleAdditive(additive.id);
                 }
                 return null;
               }
               return (
-                <IngredientItem
+                <AdditiveItem
                   key={index}
-                  imageUrl={ingredient.imageUrl}
-                  name={ingredient.name}
-                  price={ingredient.price}
-                  active={selectedIngredients.has(ingredient.id)}
-                  onClick={() => toggleIngredient(ingredient.id)}
+                  imageUrl={additive.imageUrl}
+                  name={additive.name}
+                  price={additive.price}
+                  active={selectedAdditives.has(additive.id)}
+                  onClick={() => toggleAdditive(additive.id)}
                 />
               );
             })}

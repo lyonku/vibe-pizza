@@ -3,17 +3,31 @@ import { FC } from "react";
 import { Button, Title } from "../ui";
 import { Plus } from "lucide-react";
 import Image from "next/image";
+import { Ingredient } from "@prisma/client";
 
 interface ProductCardProps {
   id: number;
   name: string;
-  desc: string;
+  desc: string | null;
   price: number;
   imageUrl: string;
+  ingredients: Ingredient[];
   className?: string;
 }
 
-export const ProductCard: FC<ProductCardProps> = ({ id, name, desc, price, imageUrl, className }) => {
+export const ProductCard: FC<ProductCardProps> = ({
+  id,
+  name,
+  desc,
+  price,
+  imageUrl,
+  ingredients,
+  className,
+}) => {
+  const ingredientsDesc = ingredients
+    .map((ingredient, index) => (index === 0 ? ingredient.name : ingredient.name.toLowerCase()))
+    .join(", ");
+
   return (
     <div className={className}>
       <Link href={`/product/${id}`} className="flex flex-col gap-4 justify-between h-full" scroll={false}>
@@ -24,7 +38,7 @@ export const ProductCard: FC<ProductCardProps> = ({ id, name, desc, price, image
 
           <div className="flex flex-col gap-2">
             <Title text={name} size="sm" className="font-bold leading-7" />
-            <p className="text-sm text-gray-400">{desc}</p>
+            <p className="text-sm text-gray-400">{desc || ingredientsDesc}</p>
           </div>
         </div>
 

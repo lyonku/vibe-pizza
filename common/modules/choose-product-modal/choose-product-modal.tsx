@@ -24,11 +24,11 @@ export const ChooseProductModal: FC<ChooseProductModalProps> = ({ product, class
     wait().then(() => (window.history.length > 2 ? router.back() : (window.location.href = "/")));
   };
 
-  const onSubmit = async (variantId: number, ingredients?: number[]) => {
+  const onSubmit = async (variantId: number, additives?: number[]) => {
     try {
       await addCartItem({
         productVariantId: variantId,
-        ingredients: ingredients,
+        additives: additives,
       });
       toast.success("Продукт добавлен в корзину");
       handleCloseDialog();
@@ -60,8 +60,8 @@ export const ChooseProductModal: FC<ChooseProductModalProps> = ({ product, class
           <ChoosePizzaForm
             imageUrl={product.imageUrl}
             name={product.name}
-            desc={product.desc}
             ingredients={product.ingredients}
+            additives={product.additives}
             variants={product.variants}
             onSubmit={onSubmit}
           />

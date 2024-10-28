@@ -9,15 +9,15 @@ interface ReturnProps {
   size: PizzaSize;
   type: PizzaType;
   weight: number;
-  selectedIngredients: Set<number>;
+  selectedAdditives: Set<number>;
   availablePizzaSizes: Variant[];
   setSize: (size: PizzaSize) => void;
   setType: (type: PizzaType) => void;
-  toggleIngredient: (id: number) => void;
+  toggleAdditive: (id: number) => void;
 }
 
 export const usePizzaOptions = (variants: ProductVariant[]): ReturnProps => {
-  const [selectedIngredients, { toggle: toggleIngredient }] = useSet(new Set<number>([]));
+  const [selectedAdditives, { toggle: toggleAdditive }] = useSet(new Set<number>([]));
   const [size, setSize] = useState<PizzaSize>(20);
   const [type, setType] = useState<PizzaType>(1);
   const [weight, setWeight] = useState(variants[0].weight ?? 0);
@@ -45,10 +45,10 @@ export const usePizzaOptions = (variants: ProductVariant[]): ReturnProps => {
     size,
     type,
     weight,
-    selectedIngredients,
+    selectedAdditives,
     availablePizzaSizes,
     setSize,
     setType,
-    toggleIngredient,
+    toggleAdditive,
   };
 };

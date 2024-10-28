@@ -8,10 +8,10 @@ export const getCartItemDetails = (
   sizeType: SizeType,
   pizzaType: PizzaType | null,
   weight: number,
-  ingredients?: PreparedCartItem["ingredients"] | []
+  additives?: PreparedCartItem["additives"] | []
 ) => {
   let details = "";
-  let ingredientsDetails = "";
+  let additivesDetails = "";
 
   if (!pizzaType) {
     if (sizeType === "PORTIONS") {
@@ -26,9 +26,9 @@ export const getCartItemDetails = (
     details = `${mapPizzaSize[size as PizzaSize]} ${size} см, ${typeName.toLowerCase()} тесто`;
   }
 
-  if (ingredients && ingredients.length >= 1) {
-    ingredientsDetails = " + " + ingredients.map((ingredient) => ingredient.name.toLowerCase()).join(", ");
+  if (additives && additives.length >= 1) {
+    additivesDetails = " + " + additives.map((additive) => additive.name.toLowerCase()).join(", ");
   }
 
-  return `${details}, ${weight} г ${ingredientsDetails}`;
+  return `${details}, ${weight} г ${additivesDetails}`;
 };

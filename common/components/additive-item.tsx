@@ -3,7 +3,7 @@ import { CircleCheck } from "lucide-react";
 import Image from "next/image";
 import { FC } from "react";
 
-interface IngredientItemProps {
+interface AdditiveItemProps {
   imageUrl: string;
   name: string;
   price: number;
@@ -12,7 +12,7 @@ interface IngredientItemProps {
   className?: string;
 }
 
-export const IngredientItem: FC<IngredientItemProps> = ({
+export const AdditiveItem: FC<AdditiveItemProps> = ({
   className,
   active,
   price,
@@ -37,13 +37,7 @@ export const IngredientItem: FC<IngredientItemProps> = ({
       />
 
       <div className="flex flex-col items-center">
-        <Image
-          width={110}
-          height={110}
-          src={imageUrl}
-          alt=""
-          className="mb-1"
-        />
+        <Image width={110} height={110} src={imageUrl} alt="" className="mb-1" />
         <span className="text-sm leading-4 font-medium">{name}</span>
       </div>
       <span className="font-bold">{price} ₽</span>

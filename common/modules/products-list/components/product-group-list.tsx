@@ -3,18 +3,14 @@
 import { FC, useEffect, useRef } from "react";
 import { cn } from "@/common/lib/utils";
 import { useIntersection } from "react-use";
-import { Product, ProductVariant } from "@prisma/client";
 import { ProductCard } from "@/common/components";
 import { Title } from "@/common/ui";
 import { useCategoryStore } from "@/common/store/useCategoryStore";
-
-interface ProductWithVariants extends Product {
-  variants: ProductVariant[];
-}
+import { ProductDTO } from "@/@types/prisma";
 
 interface ProductGroupListProps {
   title: string;
-  products: ProductWithVariants[];
+  products: ProductDTO[];
   className?: string;
   listClassName?: string;
   categoryId: number;
@@ -53,6 +49,7 @@ export const ProductGroupList: FC<ProductGroupListProps> = ({
               name={product.name}
               desc={product.desc}
               imageUrl={product.imageUrl}
+              ingredients={product.ingredients}
               price={product.variants[0].price}
             />
           );

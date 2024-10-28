@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma/prisma-client";
-import { AreIngredientsEqual } from "@/app/helpers";
+import { AreAdditivesEqual } from "@/app/helpers";
 import { CreateCartItemValues } from "@/@types/prisma";
 import { Cart } from "@prisma/client";
 
@@ -9,6 +9,7 @@ import { Cart } from "@prisma/client";
  * @param data - данные о добавляемом товаре
  * @returns обновленная корзина
  */
+
 export async function addOrUpdateCart(userCart: Cart, data: CreateCartItemValues) {
   // Ищем варианты товаров в корзине пользователя
   const existingCartVariants = await prisma.cartItem.findMany({
@@ -17,13 +18,13 @@ export async function addOrUpdateCart(userCart: Cart, data: CreateCartItemValues
       productVariantId: data.productVariantId,
     },
     include: {
-      ingredients: true,
+      additives: true,
     },
   });
 
   // Находим существующий товар с такими же ингредиентами
   const existingCartVariant = existingCartVariants.find((cartItem) =>
-    AreIngredientsEqual(cartItem.ingredients, data.ingredients ? (data.ingredients as number[]) : [])
+    AreAdditivesEqual(cartItem.additives, data.additives ? (data.additives as number[]) : [])
   );
 
   if (existingCartVariant) {
@@ -42,7 +43,7 @@ export async function addOrUpdateCart(userCart: Cart, data: CreateCartItemValues
       data: {
         cartId: userCart.id,
         productVariantId: data.productVariantId,
-        ingredients: { connect: data.ingredients?.map((id) => ({ id })) },
+        additives: { connect: data.additives?.map((id) => ({ id })) },
       },
     });
   }

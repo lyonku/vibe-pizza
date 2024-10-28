@@ -24,13 +24,15 @@ export const TopBar: FC<TopBarProps> = ({ categories }) => {
   });
 
   useEffect(() => {
-    setIsSticky(Boolean(intersection && !intersection.isIntersecting));
+    if (intersection) {
+      setIsSticky(Boolean(!intersection.isIntersecting));
+    }
   }, [intersection]);
 
   const filteredCategories = categories.filter((category) => category.products.length > 0);
 
   return (
-    <div ref={intersectionRef} className="sticky bg-white py-5 z-10 top-bar -top-[1px]">
+    <div ref={intersectionRef} className={cn("sticky bg-white py-5 z-10 -top-[1px]", isSticky && "top-bar")}>
       <Container className="flex items-center">
         <Link
           href="/"
