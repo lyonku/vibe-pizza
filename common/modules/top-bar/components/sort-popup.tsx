@@ -1,6 +1,7 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@/common/ui";
-import { ArrowDownNarrowWide, ArrowDownWideNarrow, ArrowUpDown, Flame, Star } from "lucide-react";
+import { ArrowDownNarrowWide, ArrowDownWideNarrow, ArrowUpDown, Flame, Sparkles } from "lucide-react";
 import { FC, useState } from "react";
+import { useQuerySort } from "../hooks/use-query-sort";
 
 interface SortPopupProps {}
 
@@ -10,10 +11,12 @@ export const SortPopup: FC<SortPopupProps> = () => {
     { id: "1", name: "Сначала популярное", shortName: "популярное", icon: <Flame /> },
     { id: "2", name: "Сначала недорогие", shortName: "недорогое", icon: <ArrowDownNarrowWide /> },
     { id: "3", name: "Сначала дорогие", shortName: "дорогое", icon: <ArrowDownWideNarrow /> },
-    { id: "4", name: "С лучшей оценкой", shortName: "рейтингу", icon: <Star /> },
+    { id: "4", name: "Сначала самые новые", shortName: "новизне", icon: <Sparkles /> },
   ];
 
   const [value, setValue] = useState(sortValues[0]);
+
+  useQuerySort(value.shortName);
 
   return (
     <Popover open={open} onOpenChange={() => setOpen((prev) => !prev)}>

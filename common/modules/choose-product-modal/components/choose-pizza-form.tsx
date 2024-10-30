@@ -9,6 +9,7 @@ import { Button, Title } from "@/common/ui";
 import { usePizzaOptions } from "../hooks";
 import { calcTotalPizzaPrice } from "../helpers";
 import { useCartLoading } from "@/common/store/useCartStore";
+import { useSearchParams } from "next/navigation";
 
 interface ChoosePizzaFormProps {
   imageUrl: string;
@@ -29,8 +30,11 @@ export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({
   variants,
   additives,
 }) => {
+  const searchParams = useSearchParams();
+  const activeVariantId = Number(searchParams.get("variant")) || undefined;
+
   const { size, type, weight, selectedAdditives, availablePizzaSizes, setSize, setType, toggleAdditive } =
-    usePizzaOptions(variants);
+    usePizzaOptions(variants, activeVariantId);
   const loading = useCartLoading();
   const totalPrice = calcTotalPizzaPrice(type, size, variants, additives, selectedAdditives);
   const textDetails = `${size} см, ${mapPizzaType[type].toLowerCase()} тесто, ${weight} г`;

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useSet } from "react-use";
 import { ProductVariant } from "@prisma/client";
@@ -16,10 +17,14 @@ interface ReturnProps {
   toggleAdditive: (id: number) => void;
 }
 
-export const usePizzaOptions = (variants: ProductVariant[]): ReturnProps => {
+export const usePizzaOptions = (variants: ProductVariant[], activeVariantId?: number): ReturnProps => {
+  const activeVariant = activeVariantId
+    ? variants.find((variant) => variant.id === activeVariantId)
+    : undefined;
+
   const [selectedAdditives, { toggle: toggleAdditive }] = useSet(new Set<number>([]));
-  const [size, setSize] = useState<PizzaSize>(20);
-  const [type, setType] = useState<PizzaType>(1);
+  const [size, setSize] = useState<PizzaSize>((activeVariant?.size as 20 | 30 | 40) || 30);
+  const [type, setType] = useState<PizzaType>((activeVariant?.pizzaType as 1 | 2) || 1);
   const [weight, setWeight] = useState(variants[0].weight ?? 0);
 
   const availablePizzaSizes = getAvailablePizzaSizes(type, variants);

@@ -6,8 +6,10 @@ export type ProductDTO = Product & {
   additives: Additive[];
 };
 
+export type ProductWithoutAdditives = Omit<ProductDTO, "additives">;
+
 export type CategoryDTO = Category & {
-  products: ProductDTO[];
+  products: ProductWithoutAdditives[];
 };
 
 export type CartItemDTO = CartItem & {

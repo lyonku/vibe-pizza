@@ -1,7 +1,7 @@
 import { Checkbox } from "@/common/ui";
 import { FC } from "react";
 
-export interface FilterChecboxProps {
+export interface FilterCheckboxProps {
   text: string;
   value: string;
   endAdornment?: React.ReactNode;
@@ -10,7 +10,7 @@ export interface FilterChecboxProps {
   name?: string;
 }
 
-export const FilterCheckbox: FC<FilterChecboxProps> = ({
+export const FilterCheckbox: FC<FilterCheckboxProps> = ({
   text,
   value,
   endAdornment,

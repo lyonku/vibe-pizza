@@ -96,6 +96,9 @@ async function createProducts() {
         desc: product.desc,
         imageUrl: product.imageUrl,
         categoryId: product.categoryId,
+        isNew: product.isNew,
+        isVegan: product.isVegan,
+        isSpicy: product.isSpicy,
       },
     });
 
@@ -142,12 +145,13 @@ async function up() {
   });
 
   // Создание ингредиентов
-  await prisma.additive.createMany({
-    data: additives,
-  });
-
   await prisma.ingredient.createMany({
     data: ingredients,
+  });
+
+  await prisma.additive.createMany({
+    data: additives,
+    skipDuplicates: true,
   });
 
   // Создание пицц и их вариантов

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/common/ui";
@@ -42,10 +43,10 @@ export const ChooseProductModal: FC<ChooseProductModalProps> = ({ product, class
     if (product && !isDialogOpen) {
       setDialogOpen(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
   const isPizzaForm = Boolean(product.variants[0].pizzaType);
+
   return (
     <Dialog open={isDialogOpen} onOpenChange={handleCloseDialog}>
       <DialogContent

@@ -1,6 +1,5 @@
 import { cn } from "@/common/lib/utils";
 import { FC, ReactNode } from "react";
-import Link from "next/link";
 import { Container } from "@/common/components";
 import { SearchInput } from "./components";
 import Image from "next/image";
@@ -24,12 +23,13 @@ interface HeaderProps {
  *   <Button>Корзина</Button>
  * </Header>
  */
+
 export const Header: FC<HeaderProps> = ({ hasSearch = true, children, classname, containerClassname }) => {
   return (
     <header className={cn("border-b border-[#EDEDED]", classname)}>
       <Container className={cn("flex items-start justify-between py-8", containerClassname)}>
         {/* Левая часть */}
-        <Link href="/" className="flex items-center gap-5">
+        <a href="/" className="flex items-center gap-5">
           <Image src="/logo.svg" alt="Логотип пиццы" width={48} height={48} className="scale-[1.4] " />
           <div className="flex flex-col">
             <h1 className="text-2xl uppercase font-black">
@@ -37,7 +37,7 @@ export const Header: FC<HeaderProps> = ({ hasSearch = true, children, classname,
             </h1>
             <p className="text-sm text-gray-400 leading-4">вайбовей уже некуда</p>
           </div>
-        </Link>
+        </a>
 
         {hasSearch && (
           <div className="mx-10 flex-1">

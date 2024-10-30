@@ -11,7 +11,13 @@ interface FilterPriceProps {
 export const FilterPrice: FC<FilterPriceProps> = ({ priceFrom, priceTo, setPrice, setRangePrice }) => {
   return (
     <div className="flex flex-col gap-4 border-y border-y-neutral-100 py-6 pb-7">
-      <p className="font-bold ">Цена от и до:</p>
+      <div className="flex justify-between">
+        <p className="font-bold ">Цена от и до:</p>{" "}
+        <button className="text-sm text-gray-400 hover:underline" onClick={() => setRangePrice([0, 1500])}>
+          Сбросить
+        </button>
+      </div>
+
       <div className="flex gap-3">
         <Input
           type="number"
