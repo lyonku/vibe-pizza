@@ -14,7 +14,7 @@ interface CategoriesProps {
 const useBreakpoint = createBreakpoint({ 5: 1230, 4: 1100, 3: 1000, 2: 900, 1: 720, 0: 620 });
 
 export const Categories: FC<CategoriesProps> = ({ items, isSticky }) => {
-  const [length, setLength] = useState(items.length);
+  const [length, setLength] = useState(6);
   const breakpoint = useBreakpoint();
   const activeIndex = useCategoryStore((state) => state.activeId);
 
@@ -41,7 +41,7 @@ export const Categories: FC<CategoriesProps> = ({ items, isSticky }) => {
       >
         <button>Все</button>
       </a>
-      {items.slice(0, length).map(({ name, id }, index) => (
+      {items.slice(0, length ?? 5).map(({ name, id }, index) => (
         <a
           className={cn(
             "category-item flex items-center font-bold h-11 px-5 rounded-2xl transition-colors",

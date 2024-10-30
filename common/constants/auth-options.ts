@@ -192,11 +192,12 @@ export const authOptions: AuthOptions = {
 
           return true;
         }
-
+        const fullname = user.name?.split(" ") || "User #" + user.id;
         await prisma.user.create({
           data: {
             email: user.email,
-            firstName: user.name || "User #" + user.id,
+            firstName: fullname[0],
+            lastName: fullname[1] || "",
             password: "",
             verified: new Date(),
             provider: account?.provider,

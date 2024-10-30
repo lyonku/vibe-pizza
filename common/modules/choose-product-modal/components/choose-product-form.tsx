@@ -30,7 +30,9 @@ export const ChooseProductForm: FC<ChooseProductFormProps> = ({
   const activePreparedVariant = preparedVariants.find((variant) => variant.id === String(activeVariant.id));
   const loading = useCartLoading();
 
-  const textDetails = `${activePreparedVariant?.name}, ${activeVariant.weight} г`;
+  const textDetails = `${activePreparedVariant?.name}${
+    activeVariant.weight ? `, ${activeVariant.weight} г` : ""
+  }`;
 
   const handleClickAddCart = () => {
     if (activePreparedVariant?.id) {

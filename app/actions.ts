@@ -9,6 +9,7 @@ import { PayOrder, VerificationUser } from "@/common/components/email-templates"
 import { CartItemDTO } from "@/@types/prisma";
 import { getUserSession } from "@/common/lib/get-user-session";
 import { compare, hashSync } from "bcrypt";
+import { redirect } from "next/navigation";
 
 export async function createOrder(data: CheckoutFormType) {
   try {
@@ -342,4 +343,34 @@ export async function resendCode(type: "email" | "phone", email: string, phone: 
     console.error("Error [RESEND_CODE]", error);
     throw error;
   }
+}
+
+export async function deleteUser() {
+  const currentUser = await getUserSession();
+
+  const findCart = await prisma.cart.findFirst({
+    where: {
+      userId: Number(currentUser?.id),
+    },
+  });
+
+  await prisma.cartItem.deleteMany({
+    where: {
+      cartId: findCart?.id,
+    },
+  });
+
+  await prisma.cart.delete({
+    where: {
+      userId: Number(currentUser?.id),
+    },
+  });
+
+  await prisma.user.delete({
+    where: {
+      id: Number(currentUser?.id),
+    },
+  });
+
+  redirect("/");
 }
