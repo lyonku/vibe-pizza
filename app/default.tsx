@@ -14,7 +14,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ searchParams }: { searchParams: GetSearchParams }) {
   const headersList = headers();
   const pathname = headersList.get("x-pathname") || "";
-  const isModal = pathname.startsWith("/product/") || pathname.startsWith("/login");
+  const isModal =
+    pathname.startsWith("/product/") || pathname.startsWith("/login") || pathname.startsWith("/order");
 
   return (
     <HomeLayout>

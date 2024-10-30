@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import { getCartItemDetails } from "@/common/lib";
 import { PizzaType } from "@/common/constants/pizza";
+import { cn } from "@/common/lib/utils";
 
 type CartItemWithDetails = CartItem & {
   additives: Additive[];
@@ -20,14 +21,20 @@ interface OrderInfoProps {
   items: CartItemWithDetails[];
   date: Date;
   status: OrderStatus;
+  withoutState?: boolean;
 }
 
-export const OrderInfo: FC<OrderInfoProps> = ({ id, totalAmount, items, date, status }) => {
+export const OrderInfo: FC<OrderInfoProps> = ({ id, totalAmount, items, date, status, withoutState }) => {
   const formatDate = (date: Date) => format(date, "d MMMM yyyy, 'в' HH:mm", { locale: ru });
 
   return (
-    <AccordionItem value={`item-${id}`} className="bg-white rounded-[30px] ">
-      <AccordionTrigger className="hover:no-underline p-0 AccordionTrigger px-[35px] py-[25px]">
+    <AccordionItem value={`item-${id}`} className="bg-white rounded-[30px] border-b-0">
+      <AccordionTrigger
+        className={cn(
+          "hover:no-underline p-0 AccordionTrigger px-[35px] py-[25px]",
+          withoutState && "cursor-default"
+        )}
+      >
         <div className="flex items-center gap-5">
           <Title text={`Заказ №${id}`} className="text-2xl font-bold" />
           <time dateTime={String(new Date(date))} className="text-[#AEAEAE] text-base">
@@ -36,7 +43,7 @@ export const OrderInfo: FC<OrderInfoProps> = ({ id, totalAmount, items, date, st
         </div>
         <div className="flex items-center gap-5">
           <OrderInfoStatus status={status} />
-          <ChevronDown className="AccordionChevron text-[#aeaeae]" aria-hidden />
+          {!withoutState && <ChevronDown className="AccordionChevron text-[#aeaeae]" aria-hidden />}
         </div>
       </AccordionTrigger>
       <AccordionContent className="flex flex-col px-[35px] pb-[25px]">

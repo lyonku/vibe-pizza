@@ -5,6 +5,7 @@ interface DetailsProps {
   description: string;
   orderId: number;
   amount: number;
+  cartToken: string;
 }
 
 export async function CreatePayment(details: DetailsProps) {
@@ -22,7 +23,7 @@ export async function CreatePayment(details: DetailsProps) {
       },
       confirmation: {
         type: "redirect",
-        return_url: process.env.YOOKASSA_CALLBACK_URL,
+        return_url: (process.env.YOOKASSA_CALLBACK_URL as string) + details.cartToken + "-" + details.orderId,
       },
     },
     {

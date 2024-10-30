@@ -36,7 +36,7 @@ export const ProductCard: FC<ProductCardProps> = ({
   return (
     <div className={className}>
       <Link
-        href={getProductLink(id, currentVariant?.id)}
+        href={getProductLink(id, currentVariant?.pizzaType ? currentVariant?.id : undefined)}
         className="flex flex-col gap-4 justify-between h-full"
         scroll={false}
       >

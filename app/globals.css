@@ -169,6 +169,9 @@ html {
 .top-bar {
   --shadow: hsla(0 0% 0% / 0.1) 0 0.7rem 1rem;
   box-shadow: var(--shadow);
+  background: transparent;
+  backdrop-filter: blur(20px);
+  background-color: #ffffffb9;
 }
 
 @supports (animation-timeline: scroll()) {

@@ -89,6 +89,7 @@ export async function createOrder(data: CheckoutFormType) {
       amount: order.totalAmount,
       orderId: order.id,
       description: "Оплата заказа №" + order.id,
+      cartToken,
     });
 
     if (!paymentData) {
