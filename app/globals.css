@@ -196,3 +196,10 @@ html {
 .product-list-group {
   grid-template-columns: repeat(auto-fit, minmax(250px, 0.5fr));
 }
+
+.AccordionChevron {
+  transition: transform 300ms;
+}
+.AccordionTrigger[data-state="open"] .AccordionChevron {
+  transform: rotate(180deg);
+}

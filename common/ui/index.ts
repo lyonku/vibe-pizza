@@ -38,3 +38,4 @@ export {
   AlertDialogFooter,
 } from "./alert-dialog";
 export { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "./input-otp";
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";

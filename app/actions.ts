@@ -26,6 +26,7 @@ export async function createOrder(data: CheckoutFormType) {
         items: {
           include: {
             additives: true,
+            removedIngredinets: true,
             productVariant: {
               include: {
                 product: true,
@@ -50,8 +51,11 @@ export async function createOrder(data: CheckoutFormType) {
     const servicePrice = Number((userCart.totalAmount * (1 / 100)).toFixed());
     const deliverPrice = userCart.totalAmount < 600 ? 250 : 0;
 
+    const findUser = await prisma.user.findFirst({ where: { email: data.email } });
+
     const order = await prisma.order.create({
       data: {
+        userId: findUser?.id || null,
         token: cartToken,
         firstName: data.firstName,
         lastName: data.lastName,

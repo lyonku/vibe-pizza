@@ -23,7 +23,6 @@ export const VerificationForm: FC<VerificationFormProps> = ({ type, onClose }) =
   async function auth() {
     try {
       setLoading(true);
-      console.log(type);
 
       if (type === "phone") {
         const response = await signIn("phone", {

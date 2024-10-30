@@ -90,7 +90,7 @@ export const CartSheet: FC<PropsWithChildren<CartSheetProps>> = ({ children, nee
 
             <div className="flex flex-col gap-3 overflow-auto scrollbar scrollbar-modal flex-1">
               {items.map(({ size, weight, additives, removedIngredinets, ...item }) => {
-                if (size && weight) {
+                if (size) {
                   const pizzaType = item.pizzaType as PizzaType | null;
                   const sizeType = item.sizeType as SizeType;
 

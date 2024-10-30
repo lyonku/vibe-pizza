@@ -7,7 +7,7 @@ export const getCartItemDetails = (
   size: number,
   sizeType: SizeType,
   pizzaType: PizzaType | null,
-  weight: number,
+  weight?: number | null,
   additives?: PreparedCartItem["additives"] | [],
   removedIngredinets?: PreparedCartItem["removedIngredinets"] | []
 ) => {
@@ -34,7 +34,9 @@ export const getCartItemDetails = (
     details.removedIngredinets = removedIngredinets.map((additive) => additive.name.toLowerCase()).join(", ");
   }
 
-  details.desc += `, ${weight} г`;
+  if (weight) {
+    details.desc += `, ${weight} г`;
+  }
 
   return details;
 };
