@@ -41,7 +41,7 @@ export const CartButton: FC<CartButtonProps> = ({ className, needRunFetch }) => 
           "group relative h-[50px] w-[50px] p-3 text-base animate-cart-button transition-all overflow-hidden",
           !isEmptyCart &&
             (totalAmount > 10000 ? "w-[165px]" : totalAmount < 1000 ? "w-[140px]" : "w-[150px]"),
-          isEmptyCart && "text-primary bg-white border border-primary",
+          isEmptyCart && "text-primary bg-white border border-primary hover:bg-secondary",
           className
         )}
         variant={"default"}
