@@ -1,6 +1,4 @@
-import { Additive } from "@prisma/client";
-
-export const AreAdditivesEqual = (arr1: Additive[], arr2: number[]) => {
+export const AreMassEqual = (arr1: { id: number }[], arr2: number[]) => {
   if (arr1.length !== arr2?.length) {
     return false;
   }

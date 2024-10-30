@@ -8,27 +8,33 @@ export const getCartItemDetails = (
   sizeType: SizeType,
   pizzaType: PizzaType | null,
   weight: number,
-  additives?: PreparedCartItem["additives"] | []
+  additives?: PreparedCartItem["additives"] | [],
+  removedIngredinets?: PreparedCartItem["removedIngredinets"] | []
 ) => {
-  let details = "";
-  let additivesDetails = "";
+  const details = { desc: "", additives: "", removedIngredinets: "" };
 
   if (!pizzaType) {
     if (sizeType === "PORTIONS") {
-      details = mapSizeUnits[("PORTION_" + size) as SizeUnitType];
+      details.desc = mapSizeUnits[("PORTION_" + size) as SizeUnitType];
     } else {
-      details = `${size} ${mapSizeUnits[sizeType as SizeUnitType]}`;
+      details.desc = `${size} ${mapSizeUnits[sizeType as SizeUnitType]}`;
     }
   }
 
   if (pizzaType) {
     const typeName = mapPizzaType[pizzaType];
-    details = `${mapPizzaSize[size as PizzaSize]} ${size} см, ${typeName.toLowerCase()} тесто`;
+    details.desc = `${mapPizzaSize[size as PizzaSize]} ${size} см, ${typeName.toLowerCase()} тесто`;
   }
 
   if (additives && additives.length >= 1) {
-    additivesDetails = " + " + additives.map((additive) => additive.name.toLowerCase()).join(", ");
+    details.additives = additives.map((additive) => additive.name.toLowerCase()).join(", ");
   }
 
-  return `${details}, ${weight} г ${additivesDetails}`;
+  if (removedIngredinets && removedIngredinets.length >= 1) {
+    details.removedIngredinets = removedIngredinets.map((additive) => additive.name.toLowerCase()).join(", ");
+  }
+
+  details.desc += `, ${weight} г`;
+
+  return details;
 };

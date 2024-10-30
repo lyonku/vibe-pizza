@@ -25,6 +25,7 @@ export async function GET(req: NextRequest) {
           },
           include: {
             additives: true,
+            removedIngredinets: true,
           },
         });
 
@@ -34,6 +35,7 @@ export async function GET(req: NextRequest) {
           await addOrUpdateCart(findUserCart, {
             productVariantId: item.productVariantId,
             additives: additivesIds,
+            removedIngredinets: item.removedIngredinets.map((item) => item.id),
           });
         }
 
@@ -74,6 +76,7 @@ export async function GET(req: NextRequest) {
               },
             },
             additives: true,
+            removedIngredinets: true,
           },
         },
       },

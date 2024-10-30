@@ -30,6 +30,10 @@ export const getCartDetails = (data: CartDTO): ReturnProps => {
       name: additive.name,
       price: additive.price,
     })),
+    removedIngredinets: item.removedIngredinets.map((ingredient) => ({
+      id: ingredient.id,
+      name: ingredient.name,
+    })),
     disabled: false,
   })) as PreparedCartItem[];
 

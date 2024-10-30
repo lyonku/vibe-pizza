@@ -1,7 +1,7 @@
 import { prisma } from "@/prisma/prisma-client";
-import { AreAdditivesEqual } from "@/app/helpers";
 import { CreateCartItemValues } from "@/@types/prisma";
 import { Cart } from "@prisma/client";
+import { AreMassEqual } from "./are-mass-equal";
 
 /**
  * Логика добавления или обновления товара в корзине
@@ -19,12 +19,18 @@ export async function addOrUpdateCart(userCart: Cart, data: CreateCartItemValues
     },
     include: {
       additives: true,
+      removedIngredinets: true,
     },
   });
 
   // Находим существующий товар с такими же ингредиентами
-  const existingCartVariant = existingCartVariants.find((cartItem) =>
-    AreAdditivesEqual(cartItem.additives, data.additives ? (data.additives as number[]) : [])
+  const existingCartVariant = existingCartVariants.find(
+    (cartItem) =>
+      AreMassEqual(cartItem.additives, data.additives ? (data.additives as number[]) : []) &&
+      AreMassEqual(
+        cartItem.removedIngredinets,
+        data.removedIngredinets ? (data.removedIngredinets as number[]) : []
+      )
   );
 
   if (existingCartVariant) {
@@ -44,6 +50,7 @@ export async function addOrUpdateCart(userCart: Cart, data: CreateCartItemValues
         cartId: userCart.id,
         productVariantId: data.productVariantId,
         additives: { connect: data.additives?.map((id) => ({ id })) },
+        removedIngredinets: { connect: data.removedIngredinets?.map((id) => ({ id })) },
       },
     });
   }

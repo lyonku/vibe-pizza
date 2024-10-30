@@ -48,6 +48,7 @@ export const updateCartTotalAmount = async (token: string) => {
               },
             },
             additives: true,
+            removedIngredinets: true,
           },
         },
       },

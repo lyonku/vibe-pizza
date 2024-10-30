@@ -25,11 +25,12 @@ export const ChooseProductModal: FC<ChooseProductModalProps> = ({ product, class
     wait().then(() => (window.history.length > 2 ? router.back() : (window.location.href = "/")));
   };
 
-  const onSubmit = async (variantId: number, additives?: number[]) => {
+  const onSubmit = async (variantId: number, additives?: number[], removedIngredinets?: number[]) => {
     try {
       await addCartItem({
         productVariantId: variantId,
-        additives: additives,
+        additives,
+        removedIngredinets,
       });
       toast.success("Продукт добавлен в корзину");
       handleCloseDialog();

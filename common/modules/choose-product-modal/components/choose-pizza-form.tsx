@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { cn } from "@/common/lib/utils";
 import { AdditiveItem, PizzaImage, ProductVariants } from "@/common/components";
 import { mapPizzaType, PizzaSize, PizzaType, pizzaTypes } from "@/common/constants/pizza";
@@ -10,6 +10,7 @@ import { usePizzaOptions } from "../hooks";
 import { calcTotalPizzaPrice } from "../helpers";
 import { useCartLoading } from "@/common/store/useCartStore";
 import { useSearchParams } from "next/navigation";
+import { RemovableIngredient } from "./removable-ingredient";
 
 interface ChoosePizzaFormProps {
   imageUrl: string;
@@ -17,7 +18,7 @@ interface ChoosePizzaFormProps {
   additives: Additive[];
   ingredients: Ingredient[];
   variants: ProductVariant[];
-  onSubmit: (variantId: number, ingredients: number[]) => void;
+  onSubmit: (variantId: number, ingredients: number[], removedIngredinets: number[]) => void;
   className?: string;
 }
 
@@ -32,6 +33,7 @@ export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({
 }) => {
   const searchParams = useSearchParams();
   const activeVariantId = Number(searchParams.get("variant")) || undefined;
+  const [removedIngredinets, setRemovedIngredinets] = useState<number[]>([]);
 
   const { size, type, weight, selectedAdditives, availablePizzaSizes, setSize, setType, toggleAdditive } =
     usePizzaOptions(variants, activeVariantId);
@@ -45,7 +47,7 @@ export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({
     )?.id;
 
     if (currentVariantId) {
-      onSubmit(currentVariantId, Array.from(selectedAdditives));
+      onSubmit(currentVariantId, Array.from(selectedAdditives), removedIngredinets);
     }
   };
 
@@ -53,10 +55,6 @@ export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({
   const shouldHideCheesyBorder = (additive: Additive) => {
     return additive.name === "Сырный бортик" && (type === 2 || size === 20);
   };
-
-  const ingredientsDesc = ingredients
-    .map((ingredient, index) => (index === 0 ? ingredient.name : ingredient.name.toLowerCase()))
-    .join(", ");
 
   return (
     <div className={cn(className, "flex flex-1")}>
@@ -67,7 +65,26 @@ export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({
           <div className="flex flex-col">
             <Title text={name} size="md" className="font-extrabold" />
             <p className="text-sm text-[#777777] mb-3">{textDetails}</p>
-            <p className="text-sm">{ingredientsDesc}</p>
+            <div className="text-sm">
+              {ingredients.map((ingredient, index) => {
+                const isLastIngredient = index + 1 === ingredients.length;
+                if (ingredient.removable) {
+                  return (
+                    <RemovableIngredient
+                      key={ingredient.id}
+                      ingredient={ingredient}
+                      index={index}
+                      isLastIngredient={isLastIngredient}
+                      setRemovedIngredinets={setRemovedIngredinets}
+                    />
+                  );
+                }
+                return (
+                  (index === 0 ? ingredient.name : ingredient.name.toLowerCase()) +
+                  (isLastIngredient ? "" : ", ")
+                );
+              })}
+            </div>
           </div>
 
           <div className="flex flex-col gap-2 mb-4">
