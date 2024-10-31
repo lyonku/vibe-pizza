@@ -20,5 +20,5 @@ export default async function ProfileSettingsPage() {
     return <NotAuth />;
   }
 
-  return <ProfileSettings data={user} />;
+  return <ProfileSettings data={user} provider={session.provider} />;
 }

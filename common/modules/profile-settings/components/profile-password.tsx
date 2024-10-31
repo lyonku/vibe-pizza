@@ -2,18 +2,26 @@
 
 import { updateUserPassword } from "@/app/actions";
 import { FormInput } from "@/common/components/form";
-import { profilePasswordFormSchema, ProfilePasswordFormType } from "@/common/schemas/profile-form-schema";
+import {
+  profileOauthPasswordFormSchema,
+  profilePasswordFormSchema,
+  ProfilePasswordFormType,
+} from "@/common/schemas/profile-form-schema";
 import { Button, Title } from "@/common/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-interface ProfilePasswordProps {}
+interface ProfilePasswordProps {
+  provider: string | null;
+}
 
-export const ProfilePassword: FC<ProfilePasswordProps> = () => {
+export const ProfilePassword: FC<ProfilePasswordProps> = ({ provider }) => {
+  const isOauthSession = provider === "google" || provider === "yandex";
+
   const passwordform = useForm<ProfilePasswordFormType>({
-    resolver: zodResolver(profilePasswordFormSchema),
+    resolver: zodResolver(isOauthSession ? profileOauthPasswordFormSchema : profilePasswordFormSchema),
     defaultValues: {
       oldPassword: "",
       password: "",
@@ -24,7 +32,7 @@ export const ProfilePassword: FC<ProfilePasswordProps> = () => {
   const onSubmitPassword = async (data: ProfilePasswordFormType) => {
     try {
       await updateUserPassword({
-        oldPassword: data.oldPassword,
+        oldPassword: isOauthSession ? "" : data.oldPassword,
         password: data.password,
       });
 
@@ -49,7 +57,9 @@ export const ProfilePassword: FC<ProfilePasswordProps> = () => {
       <FormProvider {...passwordform}>
         <form className="flex flex-col gap-5 mt-10" onSubmit={passwordform.handleSubmit(onSubmitPassword)}>
           <div className="flex flex-col gap-5">
-            <FormInput type="password" name="oldPassword" label="Старый пароль" autoComplete="" />
+            {!isOauthSession && (
+              <FormInput type="password" name="oldPassword" label="Старый пароль" autoComplete="" />
+            )}
             <FormInput type="password" name="password" label="Новый пароль" autoComplete="new-password" />
             <FormInput
               type="password"

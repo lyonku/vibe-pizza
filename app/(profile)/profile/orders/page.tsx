@@ -23,12 +23,26 @@ export default async function ProfileOrdersPage() {
 
   const orders = await prisma.order.findMany({
     where: {
-      userId: user.id,
+      OR: [{ userId: user.id }, { email: user.email }, user.phone ? { phone: user.phone } : {}],
     },
     orderBy: {
       updatedAt: "desc",
     },
   });
+
+  const ordersWithoutUser = orders.some((order) => !order.userId);
+  if (ordersWithoutUser) {
+    for (const order of orders) {
+      await prisma.order.update({
+        where: {
+          id: order.id,
+        },
+        data: {
+          userId: user.id,
+        },
+      });
+    }
+  }
 
   return (
     <div className="flex flex-col gap-6 w-full pb-10">
@@ -37,7 +51,7 @@ export default async function ProfileOrdersPage() {
       <Accordion
         type="multiple"
         className="w-full max-w-[750px] flex flex-col gap-6"
-        defaultValue={[`item-${orders[0].id}`]}
+        defaultValue={[`item-${orders[0]?.id}`]}
       >
         {orders.map((order) => {
           return (

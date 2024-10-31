@@ -10,6 +10,7 @@ import { FC, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import ProfileDatePicker from "./profile-date-picker";
+import Image from "next/image";
 
 interface ProfilePersonalInfoProps {
   data: User;
@@ -56,8 +57,22 @@ export const ProfilePersonalInfo: FC<ProfilePersonalInfoProps> = ({ data }) => {
   };
 
   return (
-    <div className="px-[35px] pb-[35px] pt-[30px] bg-white rounded-[30px] w-full">
+    <div className="relative px-[35px] pb-[35px] pt-[30px] bg-white rounded-[30px] w-full">
       <Title text="Личные данные" size="md" className="font-bold" />
+
+      {data.picture && (
+        <Image
+          src={
+            data.provider === "yandex"
+              ? `https://avatars.yandex.net/get-yapic/${data.picture}/islands-retina-50`
+              : data.picture
+          }
+          alt=""
+          width={60}
+          height={60}
+          className="absolute top-[30px] right-[35px] rounded-full"
+        />
+      )}
 
       <FormProvider {...personalInfoForm}>
         <form

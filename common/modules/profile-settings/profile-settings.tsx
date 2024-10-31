@@ -4,14 +4,15 @@ import { AdditionalSettings, ProfilePassword, ProfilePersonalInfo } from "./comp
 
 interface ProfileSettingsProps {
   data: User;
+  provider: string;
 }
 
-export const ProfileSettings: FC<ProfileSettingsProps> = ({ data }) => {
+export const ProfileSettings: FC<ProfileSettingsProps> = ({ data, provider }) => {
   return (
     <div className="flex flex-col gap-10 flex-1 items-start pb-10">
       <ProfilePersonalInfo data={data} />
       <div className="flex justify-between w-full gap-10">
-        <ProfilePassword />
+        <ProfilePassword provider={provider} />
         <AdditionalSettings />
       </div>
     </div>

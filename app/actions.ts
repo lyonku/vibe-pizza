@@ -157,6 +157,7 @@ export async function updateUserInfo(body: Prisma.UserUpdateInput) {
 export async function updateUserPassword(body: { oldPassword: string; password: string }) {
   try {
     const currentUser = await getUserSession();
+    const isOauthSession = currentUser?.provider === "google" || currentUser?.provider === "yandex";
 
     if (!currentUser) {
       throw new Error("Пользователь не найден");
@@ -174,7 +175,7 @@ export async function updateUserPassword(body: { oldPassword: string; password: 
 
     const isPasswordValid = await compare(body.oldPassword, findUser.password);
 
-    if (!isPasswordValid) {
+    if (!isPasswordValid && !isOauthSession) {
       throw new Error("Старый пароль указан неверно");
     }
 

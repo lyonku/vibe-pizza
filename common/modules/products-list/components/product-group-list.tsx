@@ -7,6 +7,8 @@ import { ProductCard } from "@/common/components";
 import { Title } from "@/common/ui";
 import { useCategoryStore } from "@/common/store/useCategoryStore";
 import { ProductWithoutAdditives } from "@/@types/prisma";
+import { addCartItem } from "@/common/store/useCartStore";
+import toast from "react-hot-toast";
 
 interface ProductGroupListProps {
   title: string;
@@ -36,6 +38,21 @@ export const ProductGroupList: FC<ProductGroupListProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [intersection?.isIntersecting, categoryId]);
 
+  const onSubmit = async (variantId: number | undefined) => {
+    try {
+      if (!variantId) {
+        throw new Error();
+      }
+      await addCartItem({
+        productVariantId: variantId,
+      });
+      toast.success("Продукт добавлен в корзину");
+    } catch (error) {
+      console.error(error);
+      toast.error("Не удалось добавить продукт в корзину");
+    }
+  };
+
   return (
     <div className={className} id={title} ref={intersectionRef}>
       <Title text={title} size="lg" className="font-extrabold mb-5" />
@@ -53,7 +70,7 @@ export const ProductGroupList: FC<ProductGroupListProps> = ({
             currentVariant: product.variants.length <= 3 ? product.variants[0] : undefined,
           };
 
-          return <ProductCard key={product.id} product={formattedProduct} />;
+          return <ProductCard key={product.id} product={formattedProduct} onSubmit={onSubmit} />;
         })}
       </div>
     </div>

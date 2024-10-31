@@ -16,6 +16,7 @@ interface ProductCardProps {
     hasVariants?: boolean;
     currentVariant?: ProductVariant;
   };
+  onSubmit: (variantId: number | undefined) => void;
   className?: string;
 }
 
@@ -27,6 +28,7 @@ const formatIngredients = (ingredients: Ingredient[]) =>
 export const ProductCard: FC<ProductCardProps> = ({
   product: { id, name, desc, price, imageUrl, ingredients, hasVariants, currentVariant },
   className,
+  onSubmit,
 }) => {
   const ingredientsDesc = desc || formatIngredients(ingredients);
   const priceLabel = `${hasVariants ? "от " : ""}${price} ₽`;
@@ -55,10 +57,23 @@ export const ProductCard: FC<ProductCardProps> = ({
           <span className="text-[20px]">
             <b>{priceLabel}</b>
           </span>
-          <Button variant="secondary" className="text-base font-bold flex items-center gap-1">
-            <Plus size={20} />
-            Добавить
-          </Button>
+          {hasVariants ? (
+            <Button variant="secondary" className="text-base font-bold flex items-center gap-1">
+              Выбрать
+            </Button>
+          ) : (
+            <Button
+              variant="secondary"
+              className="text-base font-bold flex items-center gap-1"
+              onClick={(e) => {
+                e.preventDefault();
+                onSubmit(currentVariant?.id);
+              }}
+            >
+              <Plus size={20} />
+              Добавить
+            </Button>
+          )}
         </div>
       </Link>
     </div>

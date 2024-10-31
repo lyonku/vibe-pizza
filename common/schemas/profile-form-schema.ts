@@ -25,5 +25,16 @@ export const profilePasswordFormSchema = z
     path: ["confirmPassword"],
   });
 
+export const profileOauthPasswordFormSchema = z
+  .object({
+    password: passwordSchema,
+    confirmPassword: passwordSchema,
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Пароли не совпадают",
+    path: ["confirmPassword"],
+  });
+
 export type ProfilePersonalInfoType = z.infer<typeof profilePersonalInfoFormSchema>;
 export type ProfilePasswordFormType = z.infer<typeof profilePasswordFormSchema>;
+export type ProfileOauthPasswordFormType = z.infer<typeof profileOauthPasswordFormSchema>;

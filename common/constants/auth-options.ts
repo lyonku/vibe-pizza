@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import GoogleProvider from "next-auth/providers/google";
 import YandexProvider from "next-auth/providers/yandex";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -187,21 +188,28 @@ export const authOptions: AuthOptions = {
             data: {
               provider: account?.provider,
               providerId: account?.providerAccountId,
+              picture: (user as any).image || null,
             },
           });
 
           return true;
         }
-        const fullname = user.name?.split(" ") || "User #" + user.id;
+
+        const isGoogle = account?.provider === "google";
+        const isYandex = account?.provider === "yandex";
+
+        const fullname = user.name?.split(" ") || "";
+
         await prisma.user.create({
           data: {
             email: user.email,
-            firstName: fullname[0],
-            lastName: fullname[1] || "",
+            firstName: isGoogle ? fullname[0] : isYandex ? (user as any).firstName : "User #" + user.id,
+            lastName: isGoogle ? fullname[1] : "",
             password: "",
             verified: new Date(),
             provider: account?.provider,
             providerId: account?.providerAccountId,
+            picture: (user as any).image || null,
           },
         });
 
@@ -237,6 +245,7 @@ export const authOptions: AuthOptions = {
         token.email = findUser.email;
         token.firstName = findUser.firstName;
         token.role = findUser.role;
+        token.provider = token.sub === token.id ? null : findUser?.provider;
       }
 
       return token;
@@ -245,6 +254,7 @@ export const authOptions: AuthOptions = {
       if (session?.user) {
         session.user.id = token.id;
         session.user.role = token.role;
+        session.user.provider = token.provider as string;
       }
 
       return session;
