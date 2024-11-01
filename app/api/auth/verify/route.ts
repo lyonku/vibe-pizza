@@ -1,5 +1,7 @@
-import { prisma } from "@/prisma/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/prisma/prisma-client";
+
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
   try {
@@ -41,6 +43,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(new URL("/login?verified", req.url));
   } catch (error) {
     console.error("Error [VERIFY_GET]", error);
-    throw error;
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
