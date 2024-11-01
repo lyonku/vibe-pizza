@@ -33,7 +33,10 @@ export const Header: FC<HeaderProps> = ({
   return (
     <header className={cn("border-b border-[#EDEDED]", classname)}>
       <Container
-        className={cn("flex items-start justify-between py-4 lg:py-8 max-lg:gap-5", containerClassname)}
+        className={cn(
+          "flex items-start justify-between py-4 lg:py-8 max-lg:gap-5 max-lg:items-center",
+          containerClassname
+        )}
       >
         {/* Левая часть */}
         <a href="/" className="flex items-center gap-2 lg:gap-5">

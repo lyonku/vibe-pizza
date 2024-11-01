@@ -21,7 +21,7 @@ export const ProfileSidebar: FC<ProfileSidebarProps> = () => {
 
   return (
     <nav className="flex flex-col items-left rounded-[30px] px-[20px] py-[30px] gap-4 max-lg:sticky max-lg:top-2 max-lg:z-10 top-bar xs:bg-white max-lg:flex-row max-lg:py-2 max-lg:px-2 max-md:justify-between max-md:w-full">
-      <div className="flex gap-4 lg:flex-col">
+      <div className="flex gap-4 lg:flex-col max-md:gap-2">
         <Link href="/profile/settings">
           <NavButton isActive={pathname === "/profile/settings"}>
             <Settings strokeWidth={1.5} className="max-lg:w-4" /> Настройки

@@ -54,7 +54,7 @@ export const ChooseProductModal: FC<ChooseProductModalProps> = ({ product, class
         className={cn(
           "p-0 w-full max-w-[1100px] min-h-[580px] bg-white",
           "max-xl:max-w-[1000px] max-lg:max-w-[780px]",
-          "max-md:max-w-[600px] max-md:max-h-[95vh] max-md:overflow-hidden max-md:rounded-[30px]",
+          "max-md:max-w-[600px] max-md:max-h-[95dvh] max-md:overflow-hidden max-md:rounded-[30px]",
           "max-sm:max-w-[500px] max-s:max-w-[400px] max-xs:max-w-[350px]",
           className
         )}

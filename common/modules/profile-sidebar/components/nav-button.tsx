@@ -12,7 +12,7 @@ export const NavButton: FC<NavButtonProps> = ({ isActive, children }) => {
     <Button
       variant="ghost"
       className={cn(
-        "gap-2 text-base w-full justify-start max-md:p-1",
+        "gap-2 text-base w-full justify-start max-md:p-1 max-md:px-2",
         isActive && "text-primary hover:text-primary"
       )}
     >

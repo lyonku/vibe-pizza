@@ -57,7 +57,7 @@ export const ChoosePizzaForm: FC<ChoosePizzaFormProps> = ({
   };
 
   return (
-    <div className={cn(className, "flex flex-1 max-md:h-[95vh] max-md:grid max-md:grid-rows-[300px_1fr]")}>
+    <div className={cn(className, "flex flex-1 max-md:h-[95dvh] max-md:grid max-md:grid-rows-[300px_1fr]")}>
       <PizzaImage src={imageUrl} className="basis-1/2" size={size} />
 
       <div className="flex flex-col flex-1 bg-[#F4F1EE] py-10 px-1 basis-1/2 rounded-e-[30px] max-md:pt-5 max-md:rounded-none max-md:overflow-auto">

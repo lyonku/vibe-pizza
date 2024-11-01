@@ -41,7 +41,7 @@ export const ChooseProductForm: FC<ChooseProductFormProps> = ({
   };
 
   return (
-    <div className={cn(className, "flex flex-1 max-md:h-[95vh] max-md:grid max-md:grid-rows-[300px_1fr]")}>
+    <div className={cn(className, "flex flex-1 max-md:h-[95dvh] max-md:grid max-md:grid-rows-[300px_1fr]")}>
       <div className={cn("flex items-center justify-center flex-1 relative w-full basis-1/2 ", className)}>
         <Image
           src={imageUrl}

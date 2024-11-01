@@ -38,8 +38,8 @@ export const CartButton: FC<CartButtonProps> = ({ className, needRunFetch }) => 
         isLoadingOver={!isEmptyCart}
         loading={debouncedLoading}
         className={cn(
-          "group relative lg:h-[50px] w-[50px] p-3 text-base animate-cart-button transition-all overflow-hidden max-lg:w-auto ",
-          "max-s:fixed max-s:bottom-4 max-s:right-4 max-s:shadow-lg max-s:z-20 ",
+          "group relative lg:h-[50px] w-[50px] p-3 text-base animate-cart-button transition-all overflow-hidden ",
+          "max-s:fixed max-s:bottom-4 max-s:right-4 max-s:shadow-lg max-s:z-20 max-s:h-[50px] max-s:min-w-[50px] ",
           !isEmptyCart &&
             (totalAmount > 10000 ? "w-[165px]" : totalAmount < 1000 ? "w-[140px]" : "w-[150px]"),
           isEmptyCart &&

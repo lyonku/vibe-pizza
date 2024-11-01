@@ -22,7 +22,7 @@ export const CheckoutDeliveryTimeChooseDialog: FC<CheckoutDeliveryTimeChooseDial
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="p-0 bg-[#f4f1ee]">
+      <DialogContent className="p-0 bg-[#f4f1ee] max-md:rounded-[30px] max-md:max-w-[350px]">
         <DialogHeader className="px-8 pt-8">
           <DialogTitle className="text-2xl">Время доставки</DialogTitle>
           <VisuallyHidden>
