@@ -40,7 +40,7 @@ const sheetVariants = cva(
           "inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
         left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-[450px]",
         right:
-          "inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-[450px]",
+          "inset-y-0 right-0 h-full w-3/4 max-s:w-[85%] border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-[450px]",
       },
     },
     defaultVariants: {
@@ -58,7 +58,7 @@ const SheetContent = React.forwardRef<React.ElementRef<typeof SheetPrimitive.Con
     <SheetPortal>
       <SheetOverlay />
       <SheetPrimitive.Content ref={ref} className={cn(sheetVariants({ side }), className)} {...props}>
-        <SheetPrimitive.Close className="absolute -left-16 top-1/2 -translate-y-1/2 rounded-sm ring-offset-background transition-transform duration-300 hover:-rotate-90 focus-visible:outline focus-visible:outline-primary focus-visible:outline-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+        <SheetPrimitive.Close className="absolute -left-16 max-s:-left-12 top-1/2 -translate-y-1/2 rounded-sm ring-offset-background transition-transform duration-300 hover:-rotate-90 focus-visible:outline focus-visible:outline-primary focus-visible:outline-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
           <X className="" color="#fff" size={40} />
           <span className="sr-only">Close</span>
         </SheetPrimitive.Close>

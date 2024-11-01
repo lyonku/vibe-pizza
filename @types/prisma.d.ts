@@ -1,19 +1,23 @@
-import { Cart, CartItem, Category, Ingredient, Product, ProductVariant } from "@prisma/client";
+import { Additive, Cart, CartItem, Category, Ingredient, Product, ProductVariant } from "@prisma/client";
 
 export type ProductDTO = Product & {
   variants: ProductVariant[];
   ingredients: Ingredient[];
+  additives: Additive[];
 };
 
+export type ProductWithoutAdditives = Omit<ProductDTO, "additives">;
+
 export type CategoryDTO = Category & {
-  products: ProductDTO[];
+  products: ProductWithoutAdditives[];
 };
 
 export type CartItemDTO = CartItem & {
   productVariant: ProductVariant & {
     product: Product;
   };
-  ingredients: Ingredient[];
+  additives: Additive[];
+  removedIngredinets: Ingredient[];
 };
 
 export type CartDTO = Cart & {
@@ -22,5 +26,6 @@ export type CartDTO = Cart & {
 
 export interface CreateCartItemValues {
   productVariantId: number;
-  ingredients?: number[];
+  additives?: number[];
+  removedIngredinets?: number[];
 }

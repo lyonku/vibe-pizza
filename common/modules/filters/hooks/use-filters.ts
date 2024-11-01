@@ -2,7 +2,7 @@ import { useSearchParams } from "next/navigation";
 import { useSet } from "react-use";
 import { ChangeEvent, useMemo, useState } from "react";
 
-interface PriceProps {
+export interface PriceProps {
   priceFrom?: number;
   priceTo?: number;
 }
@@ -11,9 +11,11 @@ interface QueryFilters extends PriceProps {
   pizzaTypes: string;
   sizes: string;
   ingredients: string;
+  tags: string;
 }
 
 export interface Filters {
+  tags: Set<string>;
   sizes: Set<string>;
   pizzaTypes: Set<string>;
   selectedIngredients: Set<string>;
@@ -26,6 +28,7 @@ interface ReturnProps extends Filters {
   togglePizzaType: (key: string) => void;
   toggleSize: (key: string) => void;
   toggleIngredient: (key: string) => void;
+  toggleTag: (key: string) => void;
 }
 
 export const useFilters = (): ReturnProps => {
@@ -52,6 +55,10 @@ export const useFilters = (): ReturnProps => {
     priceTo: Number(searchParams.get("priceTo")) || undefined,
   });
 
+  const [tags, { toggle: toggleTag }] = useSet(
+    new Set<string>(searchParams.get("tags") ? searchParams.get("tags")?.split(",") : [])
+  );
+
   const updatePrice = (e: ChangeEvent<HTMLInputElement>) => {
     const id = e.target.id;
     const value = Number(e.target.value);
@@ -70,13 +77,15 @@ export const useFilters = (): ReturnProps => {
       pizzaTypes,
       selectedIngredients,
       prices,
+      tags,
       setPrice: updatePrice,
       setRangePrice: updateRangePrice,
       togglePizzaType,
       toggleSize,
       toggleIngredient,
+      toggleTag,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [sizes, pizzaTypes, selectedIngredients, prices]
+    [sizes, pizzaTypes, selectedIngredients, prices, tags]
   );
 };

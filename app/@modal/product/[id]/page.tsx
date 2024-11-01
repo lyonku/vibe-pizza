@@ -13,6 +13,7 @@ export default async function ProductModalPage({ params: { id } }: ParamsType) {
     },
     include: {
       ingredients: true,
+      additives: true,
       variants: true,
     },
   });

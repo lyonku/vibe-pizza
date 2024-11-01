@@ -11,6 +11,7 @@ export type PreparedCartItem = {
   size?: number | null;
   sizeType?: SizeType;
   pizzaType?: number | null;
-  ingredients: Array<{ name: string; price: number }>;
+  additives: Array<{ name: string; price: number }>;
+  removedIngredinets: Array<{ name: string; id: number }>;
   disabled?: boolean;
 };

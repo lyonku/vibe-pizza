@@ -8,6 +8,13 @@ interface ReturnProps {
 }
 
 export const getCartDetails = (data: CartDTO): ReturnProps => {
+  if (!data.items || data.items.length === 0) {
+    return {
+      totalAmount: 0,
+      items: [],
+    };
+  }
+
   const items = data.items.map((item) => ({
     id: item.id,
     productId: item.productVariant.product.id,
@@ -19,9 +26,13 @@ export const getCartDetails = (data: CartDTO): ReturnProps => {
     size: item.productVariant.size,
     sizeType: item.productVariant.sizeType,
     pizzaType: item.productVariant.pizzaType,
-    ingredients: item.ingredients.map((ingredient) => ({
+    additives: item.additives.map((additive) => ({
+      name: additive.name,
+      price: additive.price,
+    })),
+    removedIngredinets: item.removedIngredinets.map((ingredient) => ({
+      id: ingredient.id,
       name: ingredient.name,
-      price: ingredient.price,
     })),
     disabled: false,
   })) as PreparedCartItem[];

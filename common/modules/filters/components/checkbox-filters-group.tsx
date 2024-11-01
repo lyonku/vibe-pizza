@@ -2,12 +2,12 @@
 
 import { ChangeEvent, FC, useState } from "react";
 import { Input, Skeleton } from "@/common/ui";
-import { FilterChecboxProps, FilterCheckbox } from "./filter-checkbox";
+import { FilterCheckboxProps, FilterCheckbox } from "./filter-checkbox";
 
-type Item = FilterChecboxProps;
+type Item = FilterCheckboxProps;
 
 interface CheckboxFiltersGroupProps {
-  title: string;
+  title?: string;
   items: Item[];
   defaultItems?: Item[];
   limit?: number;
@@ -38,7 +38,7 @@ export const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
     setShowAll((prev) => !prev);
   };
 
-  const onChangeSeacrchInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
 
@@ -67,22 +67,22 @@ export const CheckboxFiltersGroup: FC<CheckboxFiltersGroupProps> = ({
 
   return (
     <div className={className}>
-      <p className="font-bold">{title}</p>
+      {title && <p className="font-bold">{title}</p>}
 
       {showAll && (
         <Input
           placeholder={searchInputPlaceholder}
           className="bg-gray-50 border-none"
-          onChange={onChangeSeacrchInput}
+          onChange={onChangeSearchInput}
           value={searchValue}
         />
       )}
 
       <div className="flex flex-col gap-4 max-h-96 pr-2 overflow-auto scrollbar">
-        {list.map((item, index) => {
+        {list.map((item) => {
           return (
             <FilterCheckbox
-              key={index}
+              key={item.value}
               text={item.text}
               value={item.value}
               endAdornment={item.endAdornment}

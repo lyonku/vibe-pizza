@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { PrismaClient } from "@prisma/client";
 import { hashSync } from "bcrypt";
-import { categories, ingredients, pizzas, products } from "./constants";
+import { additives, categories, ingredients, pizzas, products } from "./constants";
 
 const prisma = new PrismaClient();
 
@@ -67,12 +68,18 @@ async function createPizzas() {
     const createdPizza = await prisma.product.create({
       data: {
         name: pizza.name,
-        desc: pizza.desc,
         imageUrl: pizza.imageUrl,
         categoryId: pizza.categoryId,
-        ingredients: {
-          connect: ingredients,
+        additives: {
+          connect: additives,
         },
+        ingredients: {
+          connect: pizza.ingredients.map((ingredientId) => ({ id: ingredientId })),
+        },
+        isNew: pizza.isNew,
+        isVegan: pizza.isVegan,
+        isSpicy: pizza.isSpicy,
+        isPopular: pizza.isPopular,
       },
     });
 
@@ -90,15 +97,23 @@ async function createProducts() {
         desc: product.desc,
         imageUrl: product.imageUrl,
         categoryId: product.categoryId,
+        isNew: product.isNew,
+        isVegan: product.isVegan,
+        isSpicy: product.isSpicy,
       },
     });
 
-    for (const variant of product.variants) {
+    const basePrice = randomDecimalNumber(120, 300);
+
+    for (let i = 0; i < product.variants.length; i++) {
+      const variant = product.variants[i];
+      const priceMultiplier = i >= 1 ? 1.5 : 1;
+
       // Создание вариации для обычного продукта
       await prisma.productVariant.create({
         data: {
           productId: createdProduct.id,
-          price: randomDecimalNumber(120, 400),
+          price: (variant as any).price || basePrice * priceMultiplier,
           weight: variant.weight,
           size: variant.size,
           sizeType: product.sizeType as "LITERS" | "PIECES" | "PORTIONS",
@@ -114,14 +129,14 @@ async function up() {
   await prisma.user.createMany({
     data: [
       {
-        fullName: "User",
+        firstName: "User",
         email: "user@test.ru",
         password: hashSync("111111", 10),
         verified: new Date(),
         role: "USER",
       },
       {
-        fullName: "Admin",
+        firstName: "Admin",
         email: "admin@test.ru",
         password: hashSync("111111", 10),
         verified: new Date(),
@@ -140,6 +155,11 @@ async function up() {
     data: ingredients,
   });
 
+  await prisma.additive.createMany({
+    data: additives,
+    skipDuplicates: true,
+  });
+
   // Создание пицц и их вариантов
   await createPizzas();
 
@@ -147,24 +167,24 @@ async function up() {
   await createProducts();
 
   // Создание корзин
-  await prisma.cart.createMany({
-    data: [
-      { userId: 1, totalAmount: 0, token: "11111" },
-      { userId: 2, totalAmount: 0, token: "11111" },
-    ],
-  });
+  // await prisma.cart.createMany({
+  //   data: [
+  //     { userId: 1, totalAmount: 0, token: "11111" },
+  //     { userId: 2, totalAmount: 0, token: "11111" },
+  //   ],
+  // });
 
   // Пример создания элемента корзины
-  await prisma.cartItem.create({
-    data: {
-      productVariantId: 1, // ID варианта продукта
-      cartId: 1, // ID корзины
-      quantity: 1,
-      ingredients: {
-        connect: [{ id: 1 }, { id: 2 }, { id: 3 }], // Подключение ингредиентов
-      },
-    },
-  });
+  // await prisma.cartItem.create({
+  //   data: {
+  //     productVariantId: 1, // ID варианта продукта
+  //     cartId: 1, // ID корзины
+  //     quantity: 1,
+  //     ingredients: {
+  //       connect: [{ id: 1 }, { id: 2 }, { id: 3 }], // Подключение ингредиентов
+  //     },
+  //   },
+  // });
 }
 
 // Очищаем базу данных
