@@ -9,7 +9,7 @@ export interface GetSearchParams {
   priceFrom?: string;
   priceTo?: string;
   tags?: string;
-  sort?: "популярное" | "недорогое" | "дорогое" | "новизне";
+  sort?: "популярное" | "недорогое" | "дорогое" | "новое";
 }
 
 const DEFAULT_MIN_PRICE = 0;
@@ -87,7 +87,7 @@ export const findProducts = async (params: GetSearchParams) => {
         return (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0);
       }
 
-      if (sort === "новизне") {
+      if (sort === "новое") {
         return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
       }
 
