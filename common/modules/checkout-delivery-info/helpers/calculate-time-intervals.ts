@@ -1,7 +1,5 @@
 export const calculateTimeIntervals = () => {
-  const now = new Date(
-    new Date("Mon Oct 14 2024 12:00:53 GMT+0300 (Москва, стандартное время)").getTime() + 10 * 60 * 1000
-  );
+  const now = new Date(new Date().getTime() + 10 * 60 * 1000);
   const currentHour = now.getHours();
   const currentMinute = Math.ceil(now.getMinutes() / 15) * 15;
 

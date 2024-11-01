@@ -24,7 +24,7 @@ export const VerificationUser: FC<VerificationUserProps> = ({ code }) => {
       <p style={{ fontSize: "16px", color: "#5E5E5E" }}>Введите код на сайте или нажмите кнопку ниже:</p>
 
       <a
-        href={`http://localhost:3000/api/auth/verify?code=${code}`}
+        href={`https://vibe-pizza.lyonku.ru/api/auth/verify?code=${code}`}
         style={{
           display: "inline-block",
           padding: "12px 20px",
