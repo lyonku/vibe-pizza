@@ -56,7 +56,10 @@ export const AuthModal: FC<AuthModalProps> = ({ className }) => {
   return (
     <Dialog open={isDialogOpen} onOpenChange={handleCloseDialog}>
       <DialogContent
-        className={cn("w-[450px] bg-white p-10", className)}
+        className={cn(
+          "w-[450px] bg-white p-10 max-sm:rounded-[30px]  max-s:w-[380px] max-s:max-h-[95dvh] max-s:overflow-auto max-xs:w-[320px] max-xs:p-6",
+          className
+        )}
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <div className="flex justify-between items-end gap-3 mb-2">

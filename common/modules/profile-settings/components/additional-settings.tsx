@@ -26,7 +26,7 @@ export const AdditionalSettings: FC<AdditionalSettingsProps> = () => {
   };
 
   return (
-    <div className="px-[35px] pb-[35px] pt-[30px] bg-white rounded-[30px] flex-1 w-1/2 h-[max-content]">
+    <div className="px-[35px] pb-[35px] max-lg:px-[20px] max-lg:pb-[20px] max-lg:pt-[15px] pt-[30px] bg-white rounded-[30px] flex-1 w-1/2 h-[max-content] max-md:w-full">
       <Title text="Дополнительные настройки" size="md" className="font-bold" />
       <div className="flex flex-col gap-12 mt-10 justify-between ">
         <div className="">
@@ -74,7 +74,7 @@ export const AdditionalSettings: FC<AdditionalSettingsProps> = () => {
         </button>
 
         <AlertDialog open={isDeleteAlertOpen} onOpenChange={setDeleteAlertOpen}>
-          <AlertDialogContent>
+          <AlertDialogContent className="max-md:rounded-[30px] max-md:max-w-[350px]">
             <AlertDialogHeader>
               <AlertDialogTitle className="text-xl">Удаление аккаунта</AlertDialogTitle>
               <AlertDialogDescription className="text-base mb-4">
@@ -82,7 +82,7 @@ export const AdditionalSettings: FC<AdditionalSettingsProps> = () => {
                 невозможно отменить.
               </AlertDialogDescription>
             </AlertDialogHeader>
-            <AlertDialogFooter>
+            <AlertDialogFooter className="max-md:gap-2">
               <AlertDialogAction
                 className="bg-white border border-primary text-primary hover:bg-secondary"
                 onClick={() => setDeleteAlertOpen(false)}

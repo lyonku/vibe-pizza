@@ -13,7 +13,7 @@ interface SearchInputProps {
   className?: string;
 }
 
-export const SearchInput: FC<SearchInputProps> = (className) => {
+export const SearchInput: FC<SearchInputProps> = ({ className }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [focused, setFocused] = useState(false);
@@ -61,11 +61,11 @@ export const SearchInput: FC<SearchInputProps> = (className) => {
       ></div>
       <div
         ref={ref}
-        className={cn("flex rounded-2xl flex-1 justify-between relative h-[50px] z-30", className)}
+        className={cn("flex rounded-2xl flex-1 justify-between relative lg:h-[50px] z-30", className)}
       >
         <Search size={16} className="absolute top-1/2 translate-y-[-50%] left-5 text-[#ADADAD]" />
         <input
-          className="rounded-2xl outline-none w-full bg-[#F9F9F9] pl-12 placeholder-[#C0C0C0]"
+          className="rounded-2xl outline-none w-full bg-[#F9F9F9] pl-12 placeholder-[#C0C0C0] max-lg:p-2 max-lg:pl-12"
           type="text"
           placeholder="Поиск..."
           onFocus={handleInputFocus}

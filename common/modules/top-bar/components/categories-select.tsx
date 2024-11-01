@@ -18,7 +18,7 @@ const CategoriesSelect: FC<CategoriesSelectProps> = ({ activeIndex, items, isSti
     <Popover open={isSelectOpen} onOpenChange={() => setSelectOpen((prev) => !prev)}>
       <PopoverTrigger
         className={cn(
-          "flex items-center font-bold h-11 px-5 rounded-2xl transition-colors border-0 shadow-none text-base",
+          "flex items-center font-bold h-11 px-5 rounded-2xl transition-colors border-0 shadow-none text-base max-lg:h-8",
           activeIndex > length && "bg-white shadow-md shadow-gray-200 text-primary"
         )}
       >

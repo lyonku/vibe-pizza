@@ -55,14 +55,14 @@ export const CheckoutSidebar: FC<CheckoutSidebarProps> = ({
       )}
 
       {!isFirstLoading && loading && (
-        <div className="absolute right-[45px] top-[45px] transition-opacity ease-in-out animate-fade-in z-10">
+        <div className="absolute right-[45px] top-[45px] transition-opacity ease-in-out animate-fade-in z-10 ">
           <Loader className="animate-spin" />
         </div>
       )}
 
       <ContentBlock
-        className="pt-[45px] sticky top-4"
-        contentClassName="flex flex-col gap-8 px-[45px] pb-[45px]"
+        className="pt-[45px] sticky top-4 max-lg:pt-[25px]"
+        contentClassName="flex flex-col gap-8 px-[45px] pb-[45px] max-lg:px-[25px] max-lg:pb-[25px]"
       >
         <div className="flex flex-col gap-1">
           <span className="text-2xl">Итого:</span>
@@ -80,7 +80,7 @@ export const CheckoutSidebar: FC<CheckoutSidebarProps> = ({
           )}
         </div>
 
-        <hr className="-mx-[45px] border-0 border-b border-[#F3F3F3]" />
+        <hr className="-mx-[45px] max-lg:-mx-[25px] border-0 border-b border-[#F3F3F3]" />
 
         <div className="flex flex-col gap-4">
           <CheckoutItemDetails
@@ -112,7 +112,7 @@ export const CheckoutSidebar: FC<CheckoutSidebarProps> = ({
           </HoverCard>
         </div>
 
-        <hr className="-mx-[45px] border-0 border-b border-[#F3F3F3]" />
+        <hr className="-mx-[45px] border-0 border-b border-[#F3F3F3] max-lg:pb-[25px]" />
 
         <div className="flex flex-col gap-6">
           <CheckoutPromocode

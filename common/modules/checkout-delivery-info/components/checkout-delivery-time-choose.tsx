@@ -23,7 +23,7 @@ export const CheckoutDeliveryTimeChoose: FC<CheckoutDeliveryTimeChooseProps> = (
   return (
     <div className="flex flex-col gap-2">
       <p className="font-bold mb-2">Время доставки</p>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 max-lg:flex-wrap">
         <GhostButton active={activeTime === "Побыстрее"} onClick={() => setActiveTime("Побыстрее")}>
           Побыстрее
         </GhostButton>

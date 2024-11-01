@@ -57,7 +57,7 @@ export const ProfilePersonalInfo: FC<ProfilePersonalInfoProps> = ({ data }) => {
   };
 
   return (
-    <div className="relative px-[35px] pb-[35px] pt-[30px] bg-white rounded-[30px] w-full">
+    <div className="relative px-[35px] pb-[35px] pt-[30px] bg-white rounded-[30px] w-full max-lg:px-[20px] max-lg:pb-[20px] max-lg:pt-[15px] ">
       <Title text="Личные данные" size="md" className="font-bold" />
 
       {data.picture && (
@@ -79,7 +79,7 @@ export const ProfilePersonalInfo: FC<ProfilePersonalInfoProps> = ({ data }) => {
           className="flex flex-col gap-5 mt-10"
           onSubmit={personalInfoForm.handleSubmit(onSubmitPersonalInfo)}
         >
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-2 gap-5 max-sm:grid-cols-1 ">
             <FormInput name="firstName" label="Имя" placeholder="" />
             <FormInput name="lastName" label="Фамилия" />
             <FormInput name="email" label="E-Mail" />

@@ -24,7 +24,7 @@ const ProfileDatePicker: FC<ProfileDatePickerProps> = ({ isBirthdayAdded }) => {
         disabled={isBirthdayAdded}
         name="birthday"
         label="Дата рождения"
-        className="self-start w-1/3"
+        className="self-start sm:w-1/3"
         placeholder="Выберите дату рождения"
         onClick={(e) => {
           if (!isBirthdayAlertAccepted) {
@@ -35,7 +35,7 @@ const ProfileDatePicker: FC<ProfileDatePickerProps> = ({ isBirthdayAdded }) => {
       />
 
       <AlertDialog open={isBirthdayAlertOpen} onOpenChange={setBirthdayAlertOpen}>
-        <AlertDialogContent>
+        <AlertDialogContent className="max-md:rounded-[30px] max-md:max-w-[350px]">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-xl">Дата рождения будет неизменной</AlertDialogTitle>
             <AlertDialogDescription className="text-base">

@@ -31,22 +31,22 @@ export const OrderInfo: FC<OrderInfoProps> = ({ id, totalAmount, items, date, st
     <AccordionItem value={`item-${id}`} className="bg-white rounded-[30px] border-b-0">
       <AccordionTrigger
         className={cn(
-          "hover:no-underline p-0 AccordionTrigger px-[35px] py-[25px]",
+          "hover:no-underline p-0 AccordionTrigger px-[35px] py-[25px] max-s:px-[25px] max-s:py-[15px]",
           withoutState && "cursor-default"
         )}
       >
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 max-sm:flex-col max-sm:items-start max-sm:gap-0">
           <Title text={`Заказ №${id}`} className="text-2xl font-bold" />
-          <time dateTime={String(new Date(date))} className="text-[#AEAEAE] text-base">
+          <time dateTime={String(new Date(date))} className="text-[#AEAEAE] text-base max-s:text-sm">
             {formatDate(date)}
           </time>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 max-xs:flex-col-reverse max-xs:items-end max-s:gap-1">
           <OrderInfoStatus status={status} />
           {!withoutState && <ChevronDown className="AccordionChevron text-[#aeaeae]" aria-hidden />}
         </div>
       </AccordionTrigger>
-      <AccordionContent className="flex flex-col px-[35px] pb-[25px]">
+      <AccordionContent className="flex flex-col px-[35px] pb-[25px] max-s:px-[25px] max-s:py-[15px]">
         <hr className="-mx-[35px] border-0 border-b border-[#F3F3F3] my-5 mt-0" />
 
         <div className="">

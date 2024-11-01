@@ -39,38 +39,41 @@ export const ProductCard: FC<ProductCardProps> = ({
     <div className={className}>
       <Link
         href={getProductLink(id, currentVariant?.pizzaType ? currentVariant?.id : undefined)}
-        className="flex flex-col gap-4 justify-between h-full"
+        className="flex flex-col gap-4 justify-between h-full max-s:gap-2 "
         scroll={false}
       >
-        <div className="flex flex-col gap-4">
-          <div className="flex justify-center items-center bg-secondary rounded-lg h-[260px]">
-            <Image width={215} height={215} src={imageUrl} alt={name} />
+        <div className="flex flex-col gap-4 max-xs:flex-row">
+          <div className="flex justify-center items-center bg-secondary rounded-lg h-[260px] max-s:h-[140px] max-xs:min-w-[130px]">
+            <Image width={215} height={215} src={imageUrl} alt={name} className="max-s:w-[120px]" />
           </div>
 
           <div className="flex flex-col gap-2">
-            <Title text={name} size="sm" className="font-bold leading-7" />
-            <p className="text-sm text-gray-400">{ingredientsDesc}</p>
+            <Title text={name} size="sm" className="font-bold leading-7 max-s:leading-5" />
+            <p className="text-sm text-gray-400 max-s:text-xs">{ingredientsDesc}</p>
           </div>
         </div>
 
         <div className="flex justify-between items-center">
-          <span className="text-[20px]">
+          <span className="text-[20px] max-s:text-[16px]">
             <b>{priceLabel}</b>
           </span>
           {hasVariants ? (
-            <Button variant="secondary" className="text-base font-bold flex items-center gap-1">
+            <Button
+              variant="secondary"
+              className="text-base font-bold flex items-center gap-1 max-s:font-semibold max-s:text-sm max-s:h-auto"
+            >
               Выбрать
             </Button>
           ) : (
             <Button
               variant="secondary"
-              className="text-base font-bold flex items-center gap-1"
+              className="text-base font-bold flex items-center gap-1 max-s:font-semibold max-s:text-sm max-s:h-auto"
               onClick={(e) => {
                 e.preventDefault();
                 onSubmit(currentVariant?.id);
               }}
             >
-              <Plus size={20} />
+              <Plus size={20} className="max-s:w-4 max-xs:hidden" />
               Добавить
             </Button>
           )}

@@ -72,9 +72,9 @@ html {
 * {
   font-family: var(--nunito-font), sans-serif;
 }
-
 .scrollbar-hidden::-webkit-scrollbar {
   width: 0px;
+  height: 0;
 }
 
 .scrollbar::-webkit-scrollbar {

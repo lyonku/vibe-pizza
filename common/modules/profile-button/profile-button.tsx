@@ -14,6 +14,7 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { FC, useState } from "react";
 import { useDebounce } from "react-use";
+import { useMediaQuery } from "react-responsive";
 
 interface ProfileButtonProps {
   className?: string;
@@ -23,7 +24,7 @@ interface ProfileButtonProps {
 export const ProfileButton: FC<ProfileButtonProps> = ({ className, isAuthorize }) => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [debouncedDropdown, setDebouncedDropdown] = useState(false);
-
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 950px)" });
   const { data: session } = useSession();
 
   useDebounce(
@@ -43,17 +44,21 @@ export const ProfileButton: FC<ProfileButtonProps> = ({ className, isAuthorize }
   return (
     <div className={cn("", className)}>
       {isAuthorize || session ? (
-        <DropdownMenu modal={false} open={debouncedDropdown} onOpenChange={() => setOpenDropdown(false)}>
+        <DropdownMenu
+          modal={false}
+          open={!isTabletOrMobile && debouncedDropdown}
+          onOpenChange={() => setOpenDropdown(false)}
+        >
           <DropdownMenuTrigger asChild>
             <Link href="/profile" className="cursor-pointer">
               <Button
                 variant="outline"
-                className="flex items-center gap-1 h-[50px] px-5 font-semibold text-base "
+                className="flex items-center gap-1 lg:h-[50px] px-5 lg:font-semibold text-base max-md:p-3"
                 onMouseEnter={() => setOpenDropdown(true)}
                 onMouseLeave={() => setOpenDropdown(false)}
               >
                 <User size={16} />
-                Профиль
+                <span className="max-md:hidden">Профиль</span>
               </Button>
             </Link>
           </DropdownMenuTrigger>
@@ -84,9 +89,12 @@ export const ProfileButton: FC<ProfileButtonProps> = ({ className, isAuthorize }
         </DropdownMenu>
       ) : (
         <Link href="/login" scroll={false}>
-          <Button variant="outline" className="flex items-center gap-1 h-[50px] px-5 font-semibold text-base">
+          <Button
+            variant="outline"
+            className="flex items-center gap-1 lg:h-[50px] px-5 lg:font-semibold text-base max-md:p-3"
+          >
             <User size={16} />
-            Войти
+            <span className="max-md:hidden">Войти</span>
           </Button>
         </Link>
       )}

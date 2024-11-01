@@ -60,8 +60,8 @@ export const CheckoutPageForm: FC<CheckoutPageFormProps> = ({ userData }) => {
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-10 mb-20">
-        <div className="flex flex-col gap-10 flex-1 ">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-10 mb-20 max-lg:gap-5 max-md:flex-col">
+        <div className="flex flex-col gap-10 flex-1 max-lg:gap-5">
           <CheckoutCart items={items} loading={isFirstLoading} />
 
           <CheckoutPersonalInfo
@@ -76,7 +76,7 @@ export const CheckoutPageForm: FC<CheckoutPageFormProps> = ({ userData }) => {
           itemsPrice={totalAmount}
           loading={loading || submitting}
           isFirstLoading={isFirstLoading}
-          className="w-[450px]"
+          className="w-[450px] max-xl:w-auto"
         />
       </form>
     </FormProvider>

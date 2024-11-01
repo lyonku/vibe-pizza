@@ -69,10 +69,10 @@ export const FormInput: FC<FormInputProps> = ({
           {label} {required && <RequiredSymbol />}
         </p>
       )}
-      <div className="relative">
+      <div className="relative ">
         {props.type === "tel" ? (
           <Input
-            className={cn("h-12 text-md white-autofill", errorText && "border-red-500", inputClassName)}
+            className={cn("h-12 text-md white-autofill pr-10", errorText && "border-red-500", inputClassName)}
             placeholder="+7 (XXX) XXX-XX-XX"
             defaultValue={value}
             {...registerWithMask("phone", ["+7 (999) 999-99-99", "8 (999) 999-99-99"], {
@@ -82,7 +82,7 @@ export const FormInput: FC<FormInputProps> = ({
           />
         ) : (
           <Input
-            className={cn("h-12 text-md", errorText && "border-red-500", inputClassName)}
+            className={cn("h-12 text-md pr-10", errorText && "border-red-500", inputClassName)}
             onFocus={handleFocus}
             defaultValue={value}
             {...register(name)}

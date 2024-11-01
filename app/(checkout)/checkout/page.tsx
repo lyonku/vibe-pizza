@@ -17,7 +17,7 @@ export default async function CheckoutPage() {
   }
 
   return (
-    <Container className="flex flex-col gap-12 pt-10">
+    <Container className="flex flex-col gap-12 pt-10 max-lg:pt-5 max-lg:gap-5">
       <Title text="Оформление заказа" size="lg" className="font-extrabold" />
 
       <CheckoutPageForm userData={userData} />

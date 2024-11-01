@@ -54,6 +54,7 @@
     "react-hook-form": "^7.53.0",
     "react-hot-toast": "^2.4.1",
     "react-input-mask": "^3.0.0-alpha.2",
+    "react-responsive": "^10.0.0",
     "react-use": "^17.5.1",
     "resend": "^4.0.0",
     "tailwind-merge": "^2.5.2",

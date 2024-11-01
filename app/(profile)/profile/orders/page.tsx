@@ -46,7 +46,7 @@ export default async function ProfileOrdersPage() {
 
   return (
     <div className="flex flex-col gap-6 w-full pb-10">
-      <Title text="Мои заказы" size="xl" className="font-semibold" />
+      <Title text="Мои заказы" size="xl" className="font-semibold max-lg:text-2xl" />
 
       <Accordion
         type="multiple"

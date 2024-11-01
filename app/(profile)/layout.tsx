@@ -26,7 +26,7 @@ export default async function CheckoutLayout({ children }: Readonly<{ children: 
       </Header>
       <main className="flex-1 bg-[#F4F1EE]">
         {session ? (
-          <Container className="flex pt-10 flex-1 gap-10 items-start">
+          <Container className="flex pt-10 flex-1 gap-10 items-start max-lg:gap-6 max-lg:flex-col max-lg:pt-6">
             <ProfileSidebar />
             {children}
           </Container>

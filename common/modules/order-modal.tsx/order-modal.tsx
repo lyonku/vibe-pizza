@@ -22,7 +22,11 @@ export const OrderModal: FC<OrderModalProps> = ({ className, children, id, statu
   return (
     <Dialog open={isDialogOpen} onOpenChange={handleCloseDialog}>
       <DialogContent
-        className={cn("max-w-[750px] w-full bg-white ", className)}
+        className={cn(
+          "max-w-[750px] w-full bg-white max-md:rounded-[30px] max-md:max-w-[550px] max-md:p-3",
+          "max-s:max-w-[400px] max-s:max-h-[95dvh] max-s:overflow-auto max-xs:max-w-[350px]",
+          className
+        )}
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <VisuallyHidden>

@@ -11,14 +11,14 @@ export default async function Home({ searchParams }: { searchParams: GetSearchPa
 
   return (
     <>
-      <Container className="pt-10">
+      <Container className="pt-10 max-lg:pt-3 max-s:hidden">
         <Title text="Все продукты" size="lg" className="font-extrabold" />
       </Container>
 
       {/* Верхняя панель с категориями и сортировкой */}
       <TopBar categories={categories} />
 
-      <Container className="relative flex mt-10 pb-14 ">
+      <Container className="relative flex lg:mt-10 pb-14 max-s:mt-3">
         {/* Фильтрация */}
         <Suspense>
           <Filters />

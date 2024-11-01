@@ -51,7 +51,7 @@ export const ProfilePassword: FC<ProfilePasswordProps> = ({ provider }) => {
   };
 
   return (
-    <div className="px-[35px] pb-[35px] pt-[30px] bg-white rounded-[30px] flex-1 w-1/2">
+    <div className="px-[35px] pb-[35px] pt-[30px] bg-white rounded-[30px] flex-1 w-1/2 max-lg:px-[20px] max-lg:pb-[20px] max-lg:pt-[15px] max-md:w-full">
       <Title text="Изменить пароль" size="md" className="font-bold" />
 
       <FormProvider {...passwordform}>

@@ -43,7 +43,7 @@ export const CheckoutPromocode: FC<CheckoutPromocodeProps> = ({
         />
         <label
           htmlFor="floating_outlined"
-          className="absolute text-base text-gray-500 cursor-pointer duration-300 transform -translate-y-5 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-5 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+          className="absolute text-base text-gray-500 cursor-pointer duration-300 transform -translate-y-5 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-5 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 max-md:text-base"
         >
           {promocodeFocus || isPromocodeEnter ? "Промокод:" : "У меня есть промокод"}
         </label>

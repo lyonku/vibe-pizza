@@ -28,7 +28,7 @@ export const ProductGroupList: FC<ProductGroupListProps> = ({
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
   const intersectionRef = useRef(null);
   const intersection = useIntersection(intersectionRef, {
-    threshold: 0.4,
+    threshold: 0.1,
   });
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export const ProductGroupList: FC<ProductGroupListProps> = ({
       setActiveCategoryId(categoryId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [intersection?.isIntersecting, categoryId]);
+  }, [intersection, categoryId]);
 
   const onSubmit = async (variantId: number | undefined) => {
     try {
@@ -57,7 +57,12 @@ export const ProductGroupList: FC<ProductGroupListProps> = ({
     <div className={className} id={title} ref={intersectionRef}>
       <Title text={title} size="lg" className="font-extrabold mb-5" />
 
-      <div className={cn("grid gap-[50px] product-list-group", listClassName)}>
+      <div
+        className={cn(
+          "grid gap-[50px] product-list-group max-s:grid-cols-2 max-s:gap-5 max-xs:grid-cols-1 max-xs:gap-8 max-md:grid-cols-2",
+          listClassName
+        )}
+      >
         {products.map((product) => {
           const formattedProduct = {
             id: product.id,

@@ -62,7 +62,7 @@ export const FormAddressInput: FC<Props> = ({ label, required, name, className }
           highlightClassName="bg-transparent"
           inputProps={{
             className:
-              "flex h-12 text-md white-autofill w-full rounded-md border border-input bg-transparent px-3 py-1 shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:border-primary disabled:cursor-not-allowed disabled:opacity-50",
+              " pr-10 flex h-12 text-md white-autofill w-full rounded-md border border-input bg-transparent px-3 py-1 shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:border-primary disabled:cursor-not-allowed disabled:opacity-50",
             placeholder: "Начните вводить адрес, и воспользуйтесь подсказкой",
             ...register(name),
             onChange: (e) => {

@@ -42,7 +42,7 @@ export const Filters: FC<FiltersProps> = ({ className }) => {
     <div className={cn("overflow-hidden", className)}>
       <Button
         variant="secondary"
-        className="absolute right-4 top-2"
+        className="absolute right-4 top-2 max-s:z-[11]"
         onClick={() => setFilterOpen((prev) => !prev)}
       >
         <ChevronsRight className={cn("transition-transform", isFiltersOpen && "rotate-180")} />
@@ -54,8 +54,8 @@ export const Filters: FC<FiltersProps> = ({ className }) => {
       </Button>
       <div
         className={cn(
-          "flex flex-col gap-5 transition-all -ml-[250px] w-[250px]",
-          isFiltersOpen && " mr-[80px] ml-0"
+          "flex flex-col gap-5 pb-4 transition-all -ml-[300px] w-[250px] max-s:absolute max-s:inset-0 max-s:overflow-hidden max-s:p-4 max-s:w-screen max-s:-ml-[100vw]",
+          isFiltersOpen && "md:mr-[80px] ml-0 max-s:bg-white max-s:z-10 max-s:ml-0"
         )}
       >
         <Title text="Фильтрация" size="sm" className="font-bold" />

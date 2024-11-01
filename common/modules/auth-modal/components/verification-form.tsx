@@ -93,7 +93,7 @@ export const VerificationForm: FC<VerificationFormProps> = ({ type, onClose }) =
           .fill(0)
           .map((_, i) => (
             <InputOTPGroup key={i}>
-              <InputOTPSlot index={i} className="h-[60px] w-[50px] text-2xl" />
+              <InputOTPSlot index={i} className="h-[60px] w-[50px] text-2xl max-s:w-[40px] max-s:h-[50px] " />
             </InputOTPGroup>
           ))}
       </InputOTP>
