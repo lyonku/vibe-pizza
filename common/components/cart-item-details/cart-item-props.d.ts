@@ -4,7 +4,7 @@ export interface CartItemProps {
   name: string;
   imageUrl: string;
   price: number;
-  details: string;
+  details: { desc: string; additives: string; removedIngredinets: string };
   disabled: boolean | undefined;
   onClickRemove: () => void;
   onClickCountButton: (type: "plus" | "minus") => void;

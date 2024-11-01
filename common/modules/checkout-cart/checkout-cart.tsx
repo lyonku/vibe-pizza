@@ -60,7 +60,7 @@ export const CheckoutCart: FC<CheckoutCartProps> = ({ items, loading, className 
       }
       className={className}
     >
-      {items.map(({ size, weight, ingredients, ...item }) => {
+      {items.map(({ size, weight, additives, removedIngredinets, ...item }) => {
         if (size && weight) {
           const pizzaType = item.pizzaType as PizzaType | null;
           const sizeType = item.sizeType as SizeType;
@@ -70,7 +70,7 @@ export const CheckoutCart: FC<CheckoutCartProps> = ({ items, loading, className 
               <CheckoutCartItem
                 productId={item.productId}
                 imageUrl={item.imageUrl}
-                details={getCartItemDetails(size, sizeType, pizzaType, weight, ingredients)}
+                details={getCartItemDetails(size, sizeType, pizzaType, weight, additives, removedIngredinets)}
                 name={item.name}
                 price={item.price}
                 quantity={item.quantity}

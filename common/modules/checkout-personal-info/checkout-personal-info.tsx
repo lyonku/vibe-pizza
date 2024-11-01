@@ -9,7 +9,7 @@ interface CheckoutPersonalInfoProps {
 export const CheckoutPersonalInfo: FC<CheckoutPersonalInfoProps> = ({ className }) => {
   return (
     <ContentBlock title="2. Персональная информация" className={className}>
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-2 gap-5 max-sm:grid-cols-1">
         <FormInput name="firstName" label="Имя" placeholder="" required />
         <FormInput name="lastName" label="Фамилия" required />
         <FormInput name="email" label="E-Mail" required />

@@ -11,18 +11,23 @@ datasource db {
 model User {
     id Int @id @default(autoincrement())
 
-    fullName String
-    email    String   @unique
-    password String
-    role     UserRole @default(USER)
-    verified DateTime
+    firstName String
+    lastName  String?
+    email     String    @unique
+    password  String
+    role      UserRole  @default(USER)
+    address   String?
+    birthday  DateTime?
+    phone     String?
 
     provider   String?
     providerId String?
+    picture    String?
 
     cart             Cart?
     orders           Order[]
     verificationCode VerificationCode?
+    verified         DateTime?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -41,10 +46,16 @@ model Product {
     id Int @id @default(autoincrement())
 
     name     String
-    desc     String
+    desc     String?
     imageUrl String
 
+    isNew     Boolean?
+    isVegan   Boolean?
+    isSpicy   Boolean?
+    isPopular Boolean?
+
     ingredients Ingredient[]
+    additives   Additive[]
     variants    ProductVariant[]
 
     category   Category @relation(fields: [categoryId], references: [id])
@@ -70,12 +81,25 @@ model ProductVariant {
     productId Int
 }
 
-model Ingredient {
+model Additive {
     id Int @id @default(autoincrement())
 
     name     String
     price    Int
     imageUrl String
+
+    products  Product[]
+    cartItems CartItem[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Ingredient {
+    id Int @id @default(autoincrement())
+
+    name      String
+    removable Boolean @default(true)
 
     products  Product[]
     cartItems CartItem[]
@@ -111,7 +135,8 @@ model CartItem {
 
     quantity Int @default(1)
 
-    ingredients Ingredient[]
+    removedIngredinets Ingredient[]
+    additives          Additive[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -131,11 +156,13 @@ model Order {
 
     items Json
 
-    fullName String
-    email    String
-    phone    String
-    address  String
-    comment  String
+    firstName    String
+    lastName     String?
+    email        String
+    phone        String
+    address      String
+    comment      String?
+    deliveryTime String?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

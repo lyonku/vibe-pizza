@@ -1,19 +1,68 @@
 import { CreateCartItemValues } from "@/@types/prisma";
-import { AreIngredientsEqual, findOrCreateCart, updateCartTotalAmount } from "@/app/helpers";
+import { addOrUpdateCart, findOrCreateCart, updateCartTotalAmount } from "@/app/helpers";
+import { getUserSession } from "@/common/lib/get-user-session";
 import { prisma } from "@/prisma/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
     const token = req.cookies.get("cartToken")?.value;
+    const currentUser = await getUserSession();
+    const userId = Number(currentUser?.id);
 
-    if (!token) {
+    if (!token && !currentUser) {
       return NextResponse.json({ totalAmount: 0, items: [] });
+    }
+
+    if (token && currentUser) {
+      const findUserCart = await prisma.cart.findFirst({ where: { userId } });
+      const findTokenCart = await prisma.cart.findFirst({ where: { token } });
+
+      if (findUserCart && findTokenCart && findUserCart.id !== findTokenCart.id) {
+        const findTokenCartItems = await prisma.cartItem.findMany({
+          where: {
+            cartId: findTokenCart.id,
+          },
+          include: {
+            additives: true,
+            removedIngredinets: true,
+          },
+        });
+
+        for (const item of findTokenCartItems) {
+          const additivesIds = item.additives.map((additive) => additive.id);
+
+          await addOrUpdateCart(findUserCart, {
+            productVariantId: item.productVariantId,
+            additives: additivesIds,
+            removedIngredinets: item.removedIngredinets.map((item) => item.id),
+          });
+        }
+
+        await prisma.cartItem.deleteMany({
+          where: {
+            cartId: findTokenCart.id,
+          },
+        });
+
+        await prisma.cart.delete({
+          where: {
+            id: findTokenCart.id,
+          },
+        });
+      }
     }
 
     const userCart = await prisma.cart.findFirst({
       where: {
-        OR: [{ token }],
+        OR: [
+          {
+            userId,
+          },
+          {
+            token,
+          },
+        ],
       },
       include: {
         items: {
@@ -26,13 +75,37 @@ export async function GET(req: NextRequest) {
                 product: true,
               },
             },
-            ingredients: true,
+            additives: true,
+            removedIngredinets: true,
           },
         },
       },
     });
 
-    return NextResponse.json({ ...userCart });
+    if (!userCart) {
+      return NextResponse.json({ totalAmount: 0, items: [] });
+    }
+
+    if (!userCart.userId && userId) {
+      await prisma.cart.update({
+        where: {
+          id: userCart.id,
+        },
+        data: {
+          userId,
+        },
+      });
+    }
+
+    if (userCart.userId && userCart.userId !== userId) {
+      const response = NextResponse.json({ totalAmount: 0, items: [] });
+      response.cookies.delete("cartToken");
+      return response;
+    }
+
+    const response = NextResponse.json(userCart);
+    response.cookies.set("cartToken", userCart.token);
+    return response;
   } catch (error) {
     console.error("[CART_GET] Server error", error);
     return NextResponse.json({ message: "Не удалось получить товары из корзины" }, { status: 500 });
@@ -41,48 +114,19 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+    const currentUser = await getUserSession();
+    const userId = Number(currentUser?.id);
     let token = req.cookies.get("cartToken")?.value;
 
     if (!token) {
       token = crypto.randomUUID();
     }
 
-    const userCart = await findOrCreateCart(token);
+    const userCart = await findOrCreateCart(userId, token);
+
     const data = (await req.json()) as CreateCartItemValues;
 
-    const existingCartVariants = await prisma.cartItem.findMany({
-      where: {
-        cartId: userCart.id,
-        productVariantId: data.productVariantId,
-      },
-      include: {
-        ingredients: true,
-      },
-    });
-
-    const existingCartVariant = existingCartVariants.find((cartItem) =>
-      AreIngredientsEqual(cartItem.ingredients, data.ingredients ? (data.ingredients as number[]) : [])
-    );
-
-    if (existingCartVariant) {
-      // Если такой товар уже есть в корзине, то добавляем к нему + 1
-      await prisma.cartItem.update({
-        where: {
-          id: existingCartVariant.id,
-        },
-        data: {
-          quantity: existingCartVariant.quantity + 1,
-        },
-      });
-    } else {
-      await prisma.cartItem.create({
-        data: {
-          cartId: userCart.id,
-          productVariantId: data.productVariantId,
-          ingredients: { connect: data.ingredients?.map((id) => ({ id })) },
-        },
-      });
-    }
+    await addOrUpdateCart(userCart, data);
 
     const updatedUserCart = await updateCartTotalAmount(token);
 

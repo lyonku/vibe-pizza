@@ -1,9 +1,16 @@
 import { prisma } from "@/prisma/prisma-client";
 
-export const findOrCreateCart = async (token: string) => {
+export const findOrCreateCart = async (userId: number, token: string) => {
   let userCart = await prisma.cart.findFirst({
     where: {
-      token,
+      OR: [
+        {
+          userId,
+        },
+        {
+          token,
+        },
+      ],
     },
   });
 
@@ -11,6 +18,7 @@ export const findOrCreateCart = async (token: string) => {
     userCart = await prisma.cart.create({
       data: {
         token,
+        userId: userId,
       },
     });
   }

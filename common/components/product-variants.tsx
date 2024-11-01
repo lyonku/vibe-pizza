@@ -45,7 +45,7 @@ export const ProductVariants: FC<ProductVariantsProps> = ({ items, onClick, clas
           key={item.name}
           onClick={() => onClick?.(item.id)}
           className={cn(
-            "flex items-center justify-center cursor-pointer h-[35px] px-5 flex-1 rounded-[30px] text-sm z-[1] focus-visible:outline-primary focus-visible:outline-2 transition-colors",
+            "flex items-center justify-center cursor-pointer h-[35px] px-5 max-xs:px-2 flex-1 rounded-[30px] text-sm z-[1] focus-visible:outline-primary focus-visible:outline-2 transition-colors",
             {
               "text-gray-500 opacity-50 pointer-events-none cursor-not-allowed": item.disabled,
             }

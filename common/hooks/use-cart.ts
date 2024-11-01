@@ -12,6 +12,7 @@ import {
   useCartTotalAmount,
 } from "@/common/store/useCartStore";
 import { PreparedCartItem } from "@/@types/global";
+import { useSession } from "next-auth/react";
 
 type ReturnProps = {
   totalAmount: number;
@@ -23,6 +24,7 @@ type ReturnProps = {
 };
 
 export const useCart = (runFetch: boolean): ReturnProps => {
+  const { data: session } = useSession();
   const items = useCartItems();
   const totalAmount = useCartTotalAmount();
   const loading = useCartLoading();
@@ -31,7 +33,8 @@ export const useCart = (runFetch: boolean): ReturnProps => {
     if (runFetch) {
       fetchCartItems();
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
 
   return {
     items,
